@@ -5,6 +5,7 @@ import { Footer } from './partials/Footer';
 import { Main } from './partials/Main';
 
 
+
 class App extends Component {
   render() {
     return (
