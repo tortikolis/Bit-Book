@@ -26,7 +26,6 @@ export class Header extends Component {
                 <li><a href="badges.html">People</a></li>
                 <li><a href="collapsible.html">Profile</a></li>
             </ul>
-            
             </div>
         )
     }
