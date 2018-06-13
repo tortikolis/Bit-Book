@@ -5,6 +5,7 @@ import { Footer } from './partials/Footer';
 import { Feed } from './partials/Feed';
 
 
+
 class App extends Component {
   render() {
     return (
