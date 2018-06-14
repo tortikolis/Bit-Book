@@ -1,29 +1,27 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom'
 
-export class ImagePost extends Component {
-    constructor(props) {
-        super(props);
+export const ImagePost = (props) => {
 
-        this.state = {
-            numOfComments: 0
-        }
-    }
+    const { imageUrl, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
 
-    render() {
-        return (
+    return (
+        <Link to='/post'>
             <div className="row container">
                 <div className="col s12">
                     <div className="card #ffffff white">
-                        <div class="card-image">
-                            <img src='https://i.ytimg.com/vi/iy9LjmnzU9Y/maxresdefault.jpg' />
+                        <div className="card-image">
+                            <img src={imageUrl} />
                         </div>
                         <div className="card-action">
                             <span className='grey-text'>Image post</span>
-                            <span className='right grey-text'>{`${this.state.numOfComments} Comments`}</span>
+                            <span className='right grey-text'>{`${commentsNum} Comments`}</span>
                         </div>
                     </div>
                 </div>
             </div>
-        )
-    }
+        </Link>
+    )
 }
+
+

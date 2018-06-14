@@ -3,12 +3,7 @@ import './App.css';
 import { Header } from './partials/Header';
 import { Footer } from './partials/Footer';
 import { Feed } from './partials/Feed';
-<<<<<<< HEAD
-=======
-import { ImagePost } from './partials/posts/ImagePost';
-import { FeedList } from './partials/FeedList';
->>>>>>> FeedList created
-
+import { FeedList } from './partials/FeedList'
 
 
 class App extends Component {
@@ -16,7 +11,7 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
-        <Feed />
+        <FeedList />
         <Footer />
       </Fragment>
     );

@@ -1,5 +1,5 @@
 
-export const fetchRequest = {
+export const fetchService = {
     get(url) {
         return fetch(url,{
             headers: {

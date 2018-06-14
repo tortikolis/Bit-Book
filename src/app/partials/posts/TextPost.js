@@ -1,30 +1,32 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-export class TextPost extends Component {
-    constructor(props){
-        super(props);
+export const TextPost = (props) => {
 
-        this.state = {
-            numOfComments: 0
-        }
-    }
+  const { text, commentsNum } = props.post
 
-    render(){
-        return (
-          <div className="row container">
-          <div className="col s12">
-            <div className="card #ffffff white">
-            <div class="card-content">
-              <p>{this.props.text}</p>
-              </div>
-              <div className="card-action">
-              <span className='grey-text'>Text post</span>
-              <span className='right grey-text'>{`${this.state.numOfComments} Comments`}</span>
-              </div>
+  return (
+
+    <Link to='/post'>
+      <div className="row container">
+        <div className="col s12">
+          <div className="card #ffffff white">
+            <div className="card-content">
+              <p>{props.post.text}</p>
+            </div>
+            <div className="card-action">
+              <span className='grey-text'>Text Post</span>
+              <span className='right grey-text'>{`${props.post.commentsNum} Comments`}</span>
             </div>
           </div>
         </div>
-        )  
-      }
+      </div>
+    </Link>
+  )
+
 }
+
+
+
+
 
