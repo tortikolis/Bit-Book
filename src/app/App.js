@@ -3,6 +3,8 @@ import './App.css';
 import { Header } from './partials/Header';
 import { Footer } from './partials/Footer';
 import { Feed } from './partials/Feed';
+import { FeedList } from './partials/FeedList'
+
 
 
 class App extends Component {
@@ -10,7 +12,7 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
-        <Feed />
+        <FeedList />
         <Footer />
       </Fragment>
     );
