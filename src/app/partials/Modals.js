@@ -15,7 +15,7 @@ export class Modals extends Component {
     hideModal = event => {
         if (event.target.classList.contains("modal-holder")) {
             const modalHolder = document.querySelector(".modal-holder");
-            if (buttonType) {
+            if (this.props.buttonType) {
                 modalHolder.classList.add("none");
                 modalHolder.classList.remove("block");
             }
