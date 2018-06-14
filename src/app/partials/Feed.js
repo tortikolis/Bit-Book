@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
-export class Main extends Component {
+
+export class Feed extends Component {
     constructor(props) {
         super(props)
 
@@ -9,13 +10,14 @@ export class Main extends Component {
         }
     }
 
+
     render() {
         if (this.state.feed.length === 0) {
             return (
-                <div class="row container">
-                    <div class="col s12">
-                        <div class="card-panel white center">
-                            <span class="grey-text">Nothing in feed</span>
+                <div className="row container">
+                    <div className="col s12">
+                        <div className="card-panel white center">
+                            <span className="grey-text">Nothing in feed</span>
                         </div>
                     </div>
                 </div>
