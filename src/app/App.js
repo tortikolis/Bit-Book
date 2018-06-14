@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import './App.css';
 import { Header } from './partials/Header';
 import { Footer } from './partials/Footer';
-import { Main } from './partials/Main';
+import { Feed } from './partials/Feed';
 
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
-        <Main />
+        <Feed />
         <Footer />
       </Fragment>
     );
