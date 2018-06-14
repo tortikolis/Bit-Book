@@ -11,17 +11,17 @@ export class Modals extends Component {
         }
     }
 
+    
     hideModal = event => {
         if (event.target.classList.contains("modal-holder")) {
-            const showModal = document.querySelector("#show-modal");
             const modalHolder = document.querySelector(".modal-holder");
-            if (this.props.button) {
+            if (buttonType) {
                 modalHolder.classList.add("none");
                 modalHolder.classList.remove("block");
             }
         }
     }
-
+    
     renderTextForm = () => {
         return (
             <Fragment>
@@ -40,7 +40,7 @@ export class Modals extends Component {
             </Fragment>
         )
     }
-
+    
     renderImageForm = () => {
         return (
             <Fragment>
@@ -59,7 +59,7 @@ export class Modals extends Component {
             </Fragment>
         )
     }
-
+    
     renderVideoForm = () => {
         return (
             <Fragment>
@@ -78,43 +78,44 @@ export class Modals extends Component {
             </Fragment>
         )
     }
-
-
-
+    
+    
+    
     // inputTextHandler = event => {
-    //     event.preventDefault();
-    //     this.setState({inputTextValue:event.target.value});
-    // }
-
-    // inputImageHandler = event => {
-    //     event.preventDefault();
-    //     this.setState({inputImageValue:event.target.value});
-    // }
-
-    // inputVideoHandler = event => {
-    //     event.preventDefault();
-    //     this.setState({inputVideoValue:event.target.value});
-    // }
-
-    // validateTextInput = event => {
-    //     if (!this.state.inputTextValue) {
-    //         alert("Empty input")
-    //     }else {
-
-    //     }
-    // }
-
-
-    render() {
-        // if (!this.props.button) {
-        //     return null
+        //     event.preventDefault();
+        //     this.setState({inputTextValue:event.target.value});
         // }
+        
+        // inputImageHandler = event => {
+            //     event.preventDefault();
+            //     this.setState({inputImageValue:event.target.value});
+            // }
+            
+            // inputVideoHandler = event => {
+                //     event.preventDefault();
+                //     this.setState({inputVideoValue:event.target.value});
+                // }
+                
+                // validateTextInput = event => {
+                    //     if (!this.state.inputTextValue) {
+                        //         alert("Empty input")
+                        //     }else {
+                            
+                            //     }
+                            // }
+                            
+                            
+                            render() {
+                                const { buttonType } = this.props;
+                                // if (!button) {
+                                    //     return null
+                                    // }
 
         return (
             <Fragment>
-                {this.props.button === 'text' && this.renderTextForm()}
-                {this.props.button === 'image' && this.renderImageForm()}
-                {this.props.button === 'video' && this.renderVideoForm()}
+                {buttonType === 'text' && this.renderTextForm()}
+                {buttonType === 'image' && this.renderImageForm()}
+                {buttonType === 'video' && this.renderVideoForm()}
             </Fragment>
 
         )
