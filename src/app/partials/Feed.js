@@ -1,23 +1,37 @@
 import React, { Component, Fragment } from 'react';
 import { Modals } from './Modals';
 import { Buttons } from './Buttons';
-import { EmptyFeedMessage } from './EmptyFeedMessage';
-
+import { FeedList } from './FeedList';
+import { getAllPosts } from '../../services/postFetch';
 
 export class Feed extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            feed: [],
-            buttonType: null
+            posts: [],
+            buttonType: null,
+            postNum: 0
         }
     }
 
-    resetButtonType = event => {
-        if(event.target.classList.contains("modal-holder")) {
-        this.setState({buttonType: null})
+    getPosts = () =>{
+        getAllPosts()
+        .then((postList) => {
+            console.log(postList)
+            this.setState({
+                posts: postList
+            })
+        })
     }
+
+    componentDidMount(){
+        this.getPosts()
+        
+    }
+
+    resetButtonType = () => {
+        this.setState({buttonType: null})
     }
 
     clickedBtn = event => {
@@ -25,20 +39,17 @@ export class Feed extends Component {
         this.setState({buttonType:targetBtn});
     }
 
-    render() {
-        console.log(this.state.buttonType);
-        
-        if (this.state.feed.length === 0) {
-            return (
-                <div className="row container feed">
-                    <div className="col s12">
-                        <EmptyFeedMessage  />
 
-                        <Modals  buttonType={this.state.buttonType} closeModal={this.resetButtonType} />
-                        <Buttons  activeBtn={this.clickedBtn}/>
-                    </div>
+
+    render() {
+        return (
+            <div className="row container feed">
+                <div className="col s12">
+                    <FeedList posts={this.state.posts} />
+                    <Modals  buttonType={this.state.buttonType} closeModal={this.resetButtonType} changeState={this.getPosts}/>
+                    <Buttons  activeBtn={this.clickedBtn}/>
                 </div>
-            )
-        }
+            </div>
+        )
     }
 }
