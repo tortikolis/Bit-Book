@@ -14,13 +14,15 @@ export class Feed extends Component {
         }
     }
 
+    resetButtonType = event => {
+        if(event.target.classList.contains("modal-holder")) {
+        this.setState({buttonType: null})
+    }
+    }
+
     clickedBtn = event => {
         let targetBtn = event.target.parentElement.getAttribute("data-target");
         this.setState({buttonType:targetBtn});
-        if(this.state.buttonType) {
-        const modalHolder = document.querySelector(".modal-holder");
-                modalHolder.classList.remove("none");
-        }
     }
 
     render() {
@@ -28,10 +30,11 @@ export class Feed extends Component {
         
         if (this.state.feed.length === 0) {
             return (
-                <div className="row container">
+                <div className="row container feed">
                     <div className="col s12">
                         <EmptyFeedMessage  />
-                        <Modals  buttonType={this.state.buttonType}/>
+
+                        <Modals  buttonType={this.state.buttonType} closeModal={this.resetButtonType} />
                         <Buttons  activeBtn={this.clickedBtn}/>
                     </div>
                 </div>
