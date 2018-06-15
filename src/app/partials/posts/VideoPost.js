@@ -6,7 +6,7 @@ export const VideoPost = (props) => {
   const { videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = props.post
 
   return (
-    <Link to='/post'>
+    <Link to={`/post/${type}/${id}`}>
       <div className="row container">
         <div className="col s12">
           <div className="card #ffffff white">
