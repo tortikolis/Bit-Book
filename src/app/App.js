@@ -2,6 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { Header } from './partials/Header';
 import { Footer } from './partials/Footer';
 import { Feed } from './partials/Feed';
+import { FeedList } from './partials/FeedList';
+import { PostContent } from './partials/PostContent';
+
+import { Switch, Route } from 'react-router-dom';
 
 import 'materialize-css/dist/css/materialize.css'
 import M from 'materialize-css'
@@ -21,7 +25,10 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
-        <Feed />
+        <Switch>
+          <Route path='/post/:type/:id' component={PostContent} />
+          <Route path='/' component={Feed} />
+        </Switch>
         <Footer />
       </Fragment>
     );

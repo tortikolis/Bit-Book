@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 export const ImagePost = (props) => {
 
-    const { imageUrl, dateCreated, userId, userDisplayName, type, commentsNum } = props.post;
+    const { imageUrl, dateCreated, userId, userDisplayName, type, commentsNum, id } = props.post;
 
     return (
-        <Link to='/post'>
+        <Link to={`/post/${type}/${id}`}>
             <div className="row container">
                 <div className="col s12">
                     <div className="card #ffffff white">

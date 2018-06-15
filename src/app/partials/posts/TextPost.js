@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 export const TextPost = (props) => {
 
-  const { text, commentsNum } = props.post
+  const { text, commentsNum,id, type} = props.post
 
   return (
 
-    <Link to='/post'>
+    <Link to={`/post/${type}/${id}`}>
       <div className="row container">
         <div className="col s12">
           <div className="card #ffffff white">
