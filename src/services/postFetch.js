@@ -4,6 +4,9 @@ import { TEXTPOSTS, VIDEOPOSTS, IMAGEPOST, TEXTPOSTSGET, VIDEOPOSTSGET, IMAGEPOS
 import { Post, TextPost, VideoPost, ImagePost } from '../entities/Post';
 import { POSTS } from '../shared/constants';
 
+
+
+
 export const getAllPosts = () => {
     return fetchService.get(POSTS)
         .then((response) => {
@@ -48,4 +51,15 @@ export const getTextPost = (id) => {
             const { text, id, dateCreated, userId, userDisplayName, type, commentsNum } = response;
             return new TextPost(text, id, dateCreated, userId, userDisplayName, type, commentsNum);
         })
+}
+export const postText = content => {
+    return fetchService.post(TEXTPOSTS, content)
+}
+
+export const postVideo = content => {
+    return fetchService.post(VIDEOPOSTS, content)
+}
+
+export const postImage = content => {
+    return fetchService.post(IMAGEPOST, content)
 }

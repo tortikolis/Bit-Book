@@ -30,3 +30,5 @@ export class VideoPost extends Post {
         this.videoUrl = videoUrl;
     }
 }
+
+
