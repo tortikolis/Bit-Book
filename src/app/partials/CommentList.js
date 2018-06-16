@@ -1,9 +1,7 @@
 import React from 'react';
 import { SingleComment } from './SingleComment'
- 
+
 export const CommentList = (props) => {
-
-
 
     return (
         <div className="collection">
@@ -11,9 +9,7 @@ export const CommentList = (props) => {
                 return <SingleComment comment={comment} key={key} />
             })}
         </div>
-
     )
 }
 
 
-// ul collection

@@ -1,5 +1,3 @@
-import React from 'react';
-
 
 export class Comment {
     constructor(id, dataCreated, body, postId, authorName, authorId){

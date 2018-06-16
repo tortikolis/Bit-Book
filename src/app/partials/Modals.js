@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { postText, postImage, postVideo, getAllPosts } from "../../services/postFetch";
-import { FeedList } from "./FeedList";
+import { postText, postImage, postVideo } from "../../services/postFetch";
 
 export class Modals extends Component {
     constructor(props) {
@@ -33,7 +32,6 @@ export class Modals extends Component {
                 <input type="text" onChange={this.inputImageHandler} />
                 <p className="error">{this.state.errorMessage}</p>
             </Fragment>
-
         )
     }
 
@@ -82,7 +80,6 @@ export class Modals extends Component {
                 this.createTextPost()
                 this.props.closeModal();
             }
-
         }
         if (buttonType === "image") {
             if (!inputImageValue) {
@@ -95,7 +92,6 @@ export class Modals extends Component {
                 this.props.closeModal();
             }
         }
-
         if (buttonType === "video") {
             if (!inputVideoValue || !inputVideoValue.includes("https://www.youtube.com/watch?v=")) {
                 this.setState({ errorMessage: "Input invalid, please enter valid youtube url" })
@@ -144,7 +140,6 @@ export class Modals extends Component {
                     </div>
                 </div>
             </Fragment>
-
         )
     }
 }

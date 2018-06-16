@@ -11,16 +11,6 @@ export const SingleComment = (props) => {
             <p>{props.comment.body}
             </p>
         </div>
-
-        // <div class="row">
-        //     <div class="col s12">
-        //         <div class="card #00acc1 cyan darken-1">
-        //             <div class="card-content ">
-        //                 <p>{props.comment.body}</p>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
     )
 }
 

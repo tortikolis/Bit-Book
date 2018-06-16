@@ -7,11 +7,10 @@ export const ImagePostBody = (props) => {
             <div class="col s12 ">
                 <div class="card">
                     <div class="card-image">
-                        <img src={props.post.imageUrl} />
+                        <img src={props.post.imageUrl} alt=''/>
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }

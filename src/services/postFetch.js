@@ -1,10 +1,8 @@
 import { fetchService } from "./fetchService";
 import { TEXTPOSTS, VIDEOPOSTS, IMAGEPOST, TEXTPOSTSGET, VIDEOPOSTSGET, IMAGEPOSTSGET } from "../shared/constants";
 
-import { Post, TextPost, VideoPost, ImagePost } from '../entities/Post';
+import { TextPost, VideoPost, ImagePost } from '../entities/Post';
 import { POSTS } from '../shared/constants';
-
-
 
 
 export const getAllPosts = () => {
@@ -21,14 +19,13 @@ export const getAllPosts = () => {
                 if (type === "video") {
                     return new VideoPost(videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum);
                 }
-
             })
         })
 }
 
 export const getVideoPost = (id) => {
     return fetchService.get(VIDEOPOSTSGET + id)
-     
+
         .then((response) => {
             const { videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = response;
             return new VideoPost(videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum);
@@ -37,7 +34,7 @@ export const getVideoPost = (id) => {
 
 export const getImagePost = (id) => {
     return fetchService.get(IMAGEPOSTSGET + id)
-       
+
         .then((response) => {
             const { imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum } = response;
             return new ImagePost(imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum);
@@ -46,7 +43,7 @@ export const getImagePost = (id) => {
 
 export const getTextPost = (id) => {
     return fetchService.get(TEXTPOSTSGET + id)
-        
+
         .then((response) => {
             const { text, id, dateCreated, userId, userDisplayName, type, commentsNum } = response;
             return new TextPost(text, id, dateCreated, userId, userDisplayName, type, commentsNum);

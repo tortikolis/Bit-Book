@@ -1,7 +1,7 @@
 import React from "react"
 
-
 export const EmptyFeedMessage = () => {
+    
     return (
 
         <div className="card-panel white center">

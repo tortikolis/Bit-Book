@@ -9,6 +9,5 @@ export const getComments = (postId) =>{
             const { id, dataCreated, body, postId, authorName, authorId } = comment;
             return new Comment( id, dataCreated, body, postId, authorName, authorId );
         })
-
     })
 }
