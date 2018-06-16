@@ -23,10 +23,6 @@ export class Feed extends Component {
             })
     }
 
-    componentDidMount() {
-        this.getPosts()
-    }
-
     resetButtonType = () => {
         this.setState({ buttonType: null })
     }
@@ -34,6 +30,11 @@ export class Feed extends Component {
     clickedBtn = event => {
         let targetBtn = event.target.parentElement.getAttribute("data-target");
         this.setState({ buttonType: targetBtn });
+    }
+
+
+    componentDidMount() {
+        this.getPosts()
     }
 
 

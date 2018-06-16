@@ -67,7 +67,7 @@ export class Modals extends Component {
         event.preventDefault();
         this.setState({ inputVideoValue: event.target.value });
     }
-
+    // u validaciji radimo sam post request, verovatno potrebno da bude obrnuto tj da validaciju pozivamo u createPost
     validateForm = event => {
         event.preventDefault();
         const { buttonType } = this.props;
@@ -105,7 +105,7 @@ export class Modals extends Component {
 
     createTextPost = () => {
         postText({ text: this.state.inputTextValue })
-            .then(() => this.props.changeState());
+            .then(() => this.props.changeState());//mozda ova funkcija ne treba da se zove changeState vec refreshPosts ili nesto
     }
 
     createImagePost = () => {
@@ -134,6 +134,7 @@ export class Modals extends Component {
                             {buttonType === 'image' && this.renderImageForm()}
                             {buttonType === 'video' && this.renderVideoForm()}
                             <div className="modal-footer">
+                            {/* mozda potrebno promeniti href */}
                                 <a href="#!" className="modal-close waves-effect waves-green btn btn" onClick={this.validateForm}>POST</a>
                             </div>
                         </div>
