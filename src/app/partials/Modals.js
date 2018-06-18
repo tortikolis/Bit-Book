@@ -67,38 +67,38 @@ export class Modals extends Component {
         event.preventDefault();
         this.setState({ inputVideoValue: event.target.value });
     }
-    // u validaciji radimo sam post request, verovatno potrebno da bude obrnuto tj da validaciju pozivamo u createPost
-    validateForm = event => {
-        event.preventDefault();
+
+    validateForm = () => {
         const { buttonType } = this.props;
         const { inputImageValue, inputTextValue, inputVideoValue } = this.state;
         if (buttonType === "text") {
             if (!inputTextValue) {
                 this.setState({ errorMessage: "Input invalid, please enter something" })
+                return false;
             } else {
                 this.setState({ errorMessage: "" });
-                this.createTextPost()
-                this.props.closeModal();
+                return buttonType;
             }
         }
         if (buttonType === "image") {
             if (!inputImageValue) {
                 this.setState({ errorMessage: "Input invalid, please enter something" })
+                return false;
             } else if (!inputImageValue.includes(".jpg" || ".png" || ".svg" || ".gif" || ".bmp" || ".jpeg")) {
                 this.setState({ errorMessage: "Input invalid, please enter valid img format" })
+                return false;
             } else {
                 this.setState({ errorMessage: "" })
-                this.createImagePost();
-                this.props.closeModal();
+                return buttonType;
             }
         }
         if (buttonType === "video") {
             if (!inputVideoValue || !inputVideoValue.includes("https://www.youtube.com/watch?v=")) {
                 this.setState({ errorMessage: "Input invalid, please enter valid youtube url" })
+                return false;
             } else {
                 this.setState({ errorMessage: "" });
-                this.createVideoPost();
-                this.props.closeModal();
+                return buttonType;
             }
         }
     }
@@ -119,6 +119,23 @@ export class Modals extends Component {
             .then(() => this.props.changeState());
     }
 
+    createPost = event => {
+        event.preventDefault();
+        let validationInput = this.validateForm()
+        if (validationInput) {
+            if(validationInput === "text") {
+                this.createTextPost();
+            }
+            if(validationInput === "image") {
+                this.createImagePost();
+            }
+            if(validationInput === "video") {
+                this.createVideoPost();
+            }
+            this.props.closeModal();
+        }
+    }
+
     render() {
         const { buttonType } = this.props;
         if (!buttonType) {
@@ -135,7 +152,7 @@ export class Modals extends Component {
                             {buttonType === 'video' && this.renderVideoForm()}
                             <div className="modal-footer">
                             {/* mozda potrebno promeniti href */}
-                                <a href="#!" className="modal-close waves-effect waves-green btn btn" onClick={this.validateForm}>POST</a>
+                                <a href="#!" className="modal-close waves-effect waves-green btn btn" onClick={this.createPost}>POST</a>
                             </div>
                         </div>
                     </div>
