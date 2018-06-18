@@ -9,7 +9,7 @@ import { Header } from './partials/Header';
 import { Footer } from './partials/Footer';
 import { Feed } from './partials/Feed';
 import { PostContent } from './partials/PostContent';
-import { Profile } from './pages/UserPage';
+import { Profile } from './pages/userProfile/UserPage';
 
 
 class App extends Component {

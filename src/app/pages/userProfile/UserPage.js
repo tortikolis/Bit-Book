@@ -1,13 +1,16 @@
 import React, { Component, Fragment } from "react"
-import { fetchUser } from "../../services/userService";
+import { fetchUser } from "../../../services/userService";
 import { Link } from "react-router-dom";
-
+import { Modal } from "./partials/Modal";
 
 export class Profile extends Component {
     constructor() {
         super()
         this.state = {
-            user: {}
+            user: {},
+            isModalActive: false,
+            fullNameValue: "",
+            descriptionValue: ""
         }
     }
 
@@ -23,6 +26,33 @@ export class Profile extends Component {
         this.getUser()
     }
 
+    resetButtonType = () => {
+        this.setState({ isModalActive: false })
+    }
+
+    clickedBtn = event => {
+        this.setState({ isModalActive: true });
+    }
+
+    updateNameValue = event => {
+        this.setState({ fullNameValue: event.target.value})
+        console.log(this.state.fullNameValue)
+    }
+    
+    updateDescriptionValue = event => {
+        this.setState({ descriptionValue: event.target.value})
+        console.log(this.state.descriptionValue);
+    }
+
+    updateFullName = () => {
+        this.setState({
+            user: {
+                name: this.state.fullNameValue,
+            }
+        })
+        console.log(this.state.user);
+    }
+
     render() {
         const { userId, name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = this.state.user;
         return (
@@ -34,6 +64,7 @@ export class Profile extends Component {
                                 <img src={avatarUrl} className="profile-img" />
 
                                 <h2>{name}</h2>
+                                <a className="waves-effect waves-light btn-flat modal-trigger" onClick={this.clickedBtn}>Edit Profile</a>
                                 <p className="profile-about">{aboutShort}</p>
                                 <div className="row">
                                     <div className="col s12 m6">
@@ -49,6 +80,7 @@ export class Profile extends Component {
                                         </div>
                                     </div>
                                 </div>
+                                <Modal isModalActive={this.state.isModalActive} onCloseModal={this.resetButtonType} user={this.state.user} updateFullName={this.updateFullName} updateNameValue={this.updateNameValue}/>
                             </div>
                         </div>
                     </div>
