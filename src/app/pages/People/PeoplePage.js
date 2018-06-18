@@ -21,12 +21,12 @@ export class PeoplePage extends Component {
     }
 
     changeSearchValue = (event) => {
-        this.setState({searchValue : event.target.value})
+        this.setState({searchValue : event.target.value.toLowerCase()})
     }
 
     filterUsers = (users, searchValue) => {
         return users.filter((user) => {
-            return user.name.includes(searchValue);
+            return user.name.toLowerCase().includes(searchValue);
         })
     }
 
@@ -36,10 +36,11 @@ export class PeoplePage extends Component {
 
     render(){
         const { users, searchValue } = this.state;
+        const filteredUsers = this.filterUsers(users, searchValue)
         return(
             <div className='container' id='people'>
                 <SearchPeople onSearchHandler={this.changeSearchValue}/>
-                <PeopleList users={this.filterUsers(users, searchValue)} />
+                <PeopleList users={filteredUsers} />
             </div>
         )
     }

@@ -23,10 +23,10 @@ export const PeopleCard = props => {
 
     return (
         
-        <li className="collection-item avatar">
+        <li className="collection-item avatar" id='user-item'>
             <img src={ avatarUrl ? avatarUrl : "https://varme-center.se/wp-content/uploads/2016/06/omdome.png"} alt="" className="circle" />
             <span className="title">{name}</span>
-            <p>{aboutShort}</p>
+            <p className="about">{aboutShort}</p>
             <div className='last-update'>
                 <p>{showLastPostTime()}</p>
             </div>
