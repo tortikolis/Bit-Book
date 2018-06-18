@@ -72,9 +72,9 @@ export class PostContent extends Component {
         if (!this.state.post) {
             return <Loading />
         }
-        const postType = this.state.post.type;
-        const { comments } = this.state;
-        const { post } = this.state
+        const { comments, post } = this.state;
+        const postType = post.type;
+
         return (
             <div className="container">
                 {postType === 'text' && <TextPostBody post={post} />}

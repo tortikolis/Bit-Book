@@ -9,10 +9,26 @@ body {
   position: relative;
   height: 100%;
 }
-
+#people {
+  margin-top: 30px;
+}
 .feed {
   min-height: 100%;
   margin-bottom: -30px;
+}
+.last-update{
+  margin-top: 20px;
+  border-top: 1px solid rgb(168, 236, 236);
+  color: rgb(158, 238, 238);
+}
+.about{
+  color: grey;
+}
+.title{
+  font-weight: bold;
+}
+#user-item:hover{
+  border: 2px solid rgb(10, 179, 179);
 }
 
 #main-btn {
@@ -192,6 +208,9 @@ footer .container {
             transform: scale3D(0, 0, 1);
   } 
 }
+
+
+
 
 
     

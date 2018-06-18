@@ -6,9 +6,9 @@ export const VideoPost = (props) => {
   const { videoUrl, id, type, commentsNum } = props.post
 
   return (
-    <Link to={`/post/${type}/${id}`}>
       <div className="row container">
         <div className="col s12">
+        <Link to={`/post/${type}/${id}`}>
           <div className="card #ffffff white">
             <div className="video-container">
               <div className="video-container">
@@ -19,12 +19,11 @@ export const VideoPost = (props) => {
             <div className="card-action">
               <span className="grey-text">Video post</span>
               <span className="right grey-text">{`${commentsNum} Comments`}</span>
-            </div>
-
+            </div>  
           </div>
+          </Link>
         </div>
       </div>
-    </Link>
   )
 }
 
