@@ -1,6 +1,7 @@
 const domain = 'http://bitbookapi.azurewebsites.net';
 
 export const COMMENTS = domain + '/api/Comments?postId=';
+export const COMMENTSPOST = domain + '/api/Comments';
 export const LOGIN = domain + '/api/login';
 export const REGISTER = domain + '/api/register';
 export const IMAGEPOSTSGET = domain + '/api/ImagePosts/';

@@ -80,7 +80,7 @@ export class PostContent extends Component {
                 {postType === 'text' && <TextPostBody post={post} />}
                 {postType === 'image' && <ImagePostBody post={post} />}
                 {postType === 'video' && <VideoPostBody post={post} />}
-                <CommentForm />
+                <CommentForm postId={this.props.match.params.id} refreshComments={this.getCommentsData} />
                 <CommentList comments={comments} />
             </div>
         )
