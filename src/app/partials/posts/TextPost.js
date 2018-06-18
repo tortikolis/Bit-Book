@@ -7,9 +7,10 @@ export const TextPost = (props) => {
 
   return (
 
-    <Link to={`/post/${type}/${id}`}>
+    
       <div className="row container">
         <div className="col s12">
+        <Link to={`/post/${type}/${id}`}>
           <div className="card #ffffff white">
             <div className="card-content">
               <p>{text}</p>
@@ -19,9 +20,10 @@ export const TextPost = (props) => {
               <span className='right grey-text'>{`${commentsNum} Comments`}</span>
             </div>
           </div>
+          </Link>
         </div>
       </div>
-    </Link>
+    
   )
 }
 

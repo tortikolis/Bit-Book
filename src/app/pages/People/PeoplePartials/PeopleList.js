@@ -4,13 +4,16 @@ import { NoUserMessage } from './NoUsersMessage';
 
 export const PeopleList = props => {
 
+    const userLength = props.users.length > 0;
+    const mapUsers = props.users.map((user, key) => {
+        return <PeopleCard user={user} key={key} />
+    })
+
     return (
         <ul className="collection">
-           { props.users.length > 0 ?
-            props.users.map((user, key) => {
-               return <PeopleCard user={user} key={key}/>
-            })
-            : <NoUserMessage />
+            {userLength ?
+                mapUsers
+                : <NoUserMessage />
             }
         </ul>
     )

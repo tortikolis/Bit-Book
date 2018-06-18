@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { PeopleList } from './PeoplePartials/PeopleList';
 import { SearchPeople } from './PeoplePartials/SearchPeople';
 import { getAllUsers } from '../../../services/userService';
 
 export class PeoplePage extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -15,13 +15,14 @@ export class PeoplePage extends Component {
 
     getPeopleData = () => {
         getAllUsers()
-        .then((users) => {
-            this.setState({ users: users })
-        })
+            .then((users) => {
+                console.log(users)
+                this.setState({ users: users })
+            })
     }
 
     changeSearchValue = (event) => {
-        this.setState({searchValue : event.target.value.toLowerCase()})
+        this.setState({ searchValue: event.target.value.toLowerCase() })
     }
 
     filterUsers = (users, searchValue) => {
@@ -30,16 +31,16 @@ export class PeoplePage extends Component {
         })
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getPeopleData();
     }
 
-    render(){
+    render() {
         const { users, searchValue } = this.state;
         const filteredUsers = this.filterUsers(users, searchValue)
-        return(
+        return (
             <div className='container' id='people'>
-                <SearchPeople onSearchHandler={this.changeSearchValue}/>
+                <SearchPeople onSearchHandler={this.changeSearchValue} />
                 <PeopleList users={filteredUsers} />
             </div>
         )
