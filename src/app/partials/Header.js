@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Link} from "react-router-dom";
 
 export class Header extends Component {
 
@@ -14,7 +14,7 @@ export class Header extends Component {
                             <ul className="right hide-on-med-and-down">
                                 <li><a href="sass.html">Feed</a></li>
                                 <li><a href="badges.html">People</a></li>
-                                <li><a href="collapsible.html">Profile</a></li>
+                                <li><Link to ="/profile">Profile</Link></li>
                             </ul>
                         </div>
                     </div>
