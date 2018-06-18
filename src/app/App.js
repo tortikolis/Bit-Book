@@ -10,6 +10,7 @@ import { Footer } from './partials/Footer';
 import { Feed } from './partials/Feed';
 import { PostContent } from './partials/PostContent';
 import { PeoplePage } from './pages/People/PeoplePage'
+import { Profile } from './pages/UserPage';
 
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
         <Switch>
           <Route path='/post/:type/:id' component={PostContent} />
           <Route path='/people' component={ PeoplePage } />
+          <Route path='/profile' component={Profile}/>
           <Route path='/' component={Feed} />
         </Switch>
         <Footer />

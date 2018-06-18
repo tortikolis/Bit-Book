@@ -70,6 +70,55 @@ body {
   z-index: 333333333;
 }
 
+.profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: 50px auto;
+  display: block;
+  box-shadow: 0 0 8px #000;
+}
+
+.profile-about {
+  margin-bottom: 60px;
+}
+
+.profile-holder {
+  text-align: center;
+}
+
+.comment-holder {
+  background: #00acc1;
+  display: inline-block;
+  text-align: left;
+  width: 200px;
+  margin: 0 auto;
+  align-items: center;
+  border-radius: 30px;
+  line-height: 30px;
+  color: white;
+  margin-bottom: 10px;
+  box-shadow: 0 0 8px #000;
+}
+
+.comment-holder i {
+  line-height: 30px;
+  padding: 0px;
+  padding-left: 0px;
+  font-size: 40px;
+  color: white;
+  position: relative;
+  top: 7px;
+  left: 3px;
+}
+
+.comment-holder span {
+  line-height: 30px;
+  color: white;
+  position: relative;
+  top: -8px;
+  left: 12px;
+}
 
 footer {
   position: fixed;
