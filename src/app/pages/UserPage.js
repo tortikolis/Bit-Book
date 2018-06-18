@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react"
 import { fetchUser } from "../../services/userService";
+import { Link } from "react-router-dom";
 
 
 export class Profile extends Component {
