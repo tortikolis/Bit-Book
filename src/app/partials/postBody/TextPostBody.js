@@ -4,9 +4,9 @@ export const TextPostBody = (props) => {
 
   return (
 
-    <div class="row content">
-      <div class="col s12">
-        <div class="card-panel white">
+    <div className="row content">
+      <div className="col s12">
+        <div className="card-panel white">
           <span >{props.post.text}
           </span>
         </div>

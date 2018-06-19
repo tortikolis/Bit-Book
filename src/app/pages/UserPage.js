@@ -1,20 +1,18 @@
 import React, { Component, Fragment } from "react"
-import { fetchProfile } from "../../../services/userService";
-import { Modal } from "./partials/Modal";
+import { fetchProfile, fetchUser } from "../../services/userService";
 
 
-export class Profile extends Component {
+export class UserPage extends Component {
     constructor() {
         super()
         this.state = {
-            user: {},
-            isModalActive: false,
-            selectedImage: null
+            user: {}
         }
     }
 
     getUser = () => {
-        fetchProfile()
+        const userId = this.props.match.params.id
+        fetchUser(userId)
             .then(user => {
                 this.setState({ user: user })
             })
@@ -22,14 +20,6 @@ export class Profile extends Component {
 
     componentDidMount() {
         this.getUser()
-    }
-
-    resetButtonType = () => {
-        this.setState({ isModalActive: false })
-    }
-
-    clickedBtn = event => {
-        this.setState({ isModalActive: true });
     }
 
     render() {
@@ -40,10 +30,9 @@ export class Profile extends Component {
                     <div className="row">
                         <div className="col s12">
                             <div className="profile-holder">
-                                <img src={avatarUrl} className="profile-img" alt="profile img"/>
+                                <img src={avatarUrl} className="profile-img" alt=""/>
 
                                 <h2>{name}</h2>
-                                <a className="waves-effect waves-light btn-flat modal-trigger" onClick={this.clickedBtn}>Edit Profile</a>
                                 <p className="profile-about">{aboutShort}</p>
                                 <div className="row">
                                     <div className="col s12 m6">
@@ -59,15 +48,12 @@ export class Profile extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <Modal isModalActive={this.state.isModalActive} onCloseModal={this.resetButtonType} user={this.state.user} getUser={this.getUser}/>
                             </div>
                         </div>
                     </div>
                 </div>
             </Fragment>
-
-
-
         )
     }
 }
+
