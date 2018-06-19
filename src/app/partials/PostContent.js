@@ -73,7 +73,6 @@ export class PostContent extends Component {
         postComment(content)
             .then(() => this.getCommentsData())
 
-        //this.setState({ commentInput: '' })
     }
 
     componentDidMount() {
