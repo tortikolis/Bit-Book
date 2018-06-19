@@ -16,6 +16,7 @@ export class CommentForm extends Component {
 
     createComment = () => {
         this.props.sendComment(this.state.comment);
+        this.setState({comment: ""})
     }
 
     onCommentChange = (event) => {
