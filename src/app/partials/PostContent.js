@@ -47,7 +47,7 @@ export class PostContent extends Component {
             })
     }
 
-
+    //handling comments
     getCommentsData = () => {
         getComments(this.props.match.params.id)
             .then((commentList) => {
@@ -58,25 +58,23 @@ export class PostContent extends Component {
             })
     }
 
-    //posting comments
     commentInputHandler = event => {
         this.setState({ commentInput: event.target.value })
     }
 
-    sendComment = () => {
+    sendComment = (comment) => {
         const id = this.props.match.params.id;
-        const comment = this.state.commentInput;
+
         const content = {
             body: comment,
             postId: id,
-            authorId: 100
+            authorId: 793
         }
         postComment(content)
             .then(() => this.getCommentsData())
 
-        this.setState({ commentInput: '' })
+        //this.setState({ commentInput: '' })
     }
-    //-----------
 
     componentDidMount() {
         if (this.props.match.params.type === 'video') {
@@ -103,7 +101,7 @@ export class PostContent extends Component {
                 {postType === 'text' && <TextPostBody post={post} />}
                 {postType === 'image' && <ImagePostBody post={post} />}
                 {postType === 'video' && <VideoPostBody post={post} />}
-                <CommentForm sendComment={this.sendComment} commentInput={this.state.commentInput} commentInputHandler={this.commentInputHandler} />
+                <CommentForm sendComment={this.sendComment} />
                 <CommentList comments={comments} />
             </div>
         )
