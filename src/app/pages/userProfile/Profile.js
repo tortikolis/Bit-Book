@@ -1,12 +1,15 @@
 import React, { Component, Fragment } from "react"
-import { fetchProfile } from "../../services/userService";
+import { fetchProfile } from "../../../services/userService";
+import { Modal } from "./partials/Modal";
 
 
 export class Profile extends Component {
     constructor() {
         super()
         this.state = {
-            user: {}
+            user: {},
+            isModalActive: false,
+            selectedImage: null
         }
     }
 
@@ -21,6 +24,14 @@ export class Profile extends Component {
         this.getUser()
     }
 
+    resetButtonType = () => {
+        this.setState({ isModalActive: false })
+    }
+
+    clickedBtn = event => {
+        this.setState({ isModalActive: true });
+    }
+
     render() {
         const { name, aboutShort, avatarUrl, postsCount, commentsCount } = this.state.user;
         return (
@@ -29,9 +40,10 @@ export class Profile extends Component {
                     <div className="row">
                         <div className="col s12">
                             <div className="profile-holder">
-                                <img src={avatarUrl} className="profile-img" alt=""/>
+                                <img src={avatarUrl} className="profile-img" alt="profile img"/>
 
                                 <h2>{name}</h2>
+                                <a className="waves-effect waves-light btn-flat modal-trigger" onClick={this.clickedBtn}>Edit Profile</a>
                                 <p className="profile-about">{aboutShort}</p>
                                 <div className="row">
                                     <div className="col s12 m6">
@@ -47,6 +59,7 @@ export class Profile extends Component {
                                         </div>
                                     </div>
                                 </div>
+                                <Modal isModalActive={this.state.isModalActive} onCloseModal={this.resetButtonType} user={this.state.user} getUser={this.getUser}/>
                             </div>
                         </div>
                     </div>
@@ -58,6 +71,3 @@ export class Profile extends Component {
         )
     }
 }
-
-
-

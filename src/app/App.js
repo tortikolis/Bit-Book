@@ -9,9 +9,9 @@ import { Header } from './partials/Header';
 import { Footer } from './partials/Footer';
 import { Feed } from './partials/Feed';
 import { PostContent } from './partials/PostContent';
+import { Profile } from './pages/userProfile/Profile';
 import { PeoplePage } from './pages/People/PeoplePage'
-import { Profile } from './pages/Profile';
-import { User } from './pages/UserPage'
+import { UserPage } from './pages/UserPage'
 
 
 class App extends Component {
@@ -26,7 +26,7 @@ class App extends Component {
       <Fragment>
         <Header />
         <Switch>
-          <Route path='/user/:id' component={User} />
+          <Route path='/user/:id' component={UserPage} />
           <Route path='/post/:type/:id' component={PostContent} />
           <Route path='/people' component={ PeoplePage } />
           <Route path='/profile' component={Profile}/>
