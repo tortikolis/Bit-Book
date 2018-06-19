@@ -14,7 +14,6 @@ export class Profile extends Component {
         fetchProfile()
             .then(user => {
                 this.setState({ user: user })
-                console.log(this.state.user);
             })
     }
 
