@@ -7,6 +7,7 @@ import { getComments } from '../../services/commentFetch';
 import { getVideoPost, getImagePost, getTextPost } from '../../services/postFetch';
 import { CommentForm } from './CommentForm';
 import { Loading } from './Loading';
+import { postComment } from '../../services/commentFetch';
 
 export class PostContent extends Component {
     constructor(props) {
@@ -14,7 +15,8 @@ export class PostContent extends Component {
 
         this.state = {
             post: null,
-            comments: []
+            comments: [],
+            commentInput: ''
         }
     }
 
@@ -45,6 +47,7 @@ export class PostContent extends Component {
             })
     }
 
+
     getCommentsData = () => {
         getComments(this.props.match.params.id)
             .then((commentList) => {
@@ -54,6 +57,26 @@ export class PostContent extends Component {
 
             })
     }
+
+    //posting comments
+    commentInputHandler = event => {
+        this.setState({ commentInput: event.target.value })
+    }
+
+    sendComment = () => {
+        const id = this.props.match.params.id;
+        const comment = this.state.commentInput;
+        const content = {
+            body: comment,
+            postId: id,
+            authorId: 100
+        }
+        postComment(content)
+            .then(() => this.getCommentsData())
+
+        this.setState({ commentInput: '' })
+    }
+    //-----------
 
     componentDidMount() {
         if (this.props.match.params.type === 'video') {
@@ -80,7 +103,7 @@ export class PostContent extends Component {
                 {postType === 'text' && <TextPostBody post={post} />}
                 {postType === 'image' && <ImagePostBody post={post} />}
                 {postType === 'video' && <VideoPostBody post={post} />}
-                <CommentForm postId={this.props.match.params.id} refreshComments={this.getCommentsData} />
+                <CommentForm sendComment={this.sendComment} commentInput={this.state.commentInput} commentInputHandler={this.commentInputHandler} />
                 <CommentList comments={comments} />
             </div>
         )

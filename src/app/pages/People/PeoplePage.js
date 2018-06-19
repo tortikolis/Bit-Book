@@ -16,7 +16,6 @@ export class PeoplePage extends Component {
     getPeopleData = () => {
         getAllUsers()
             .then((users) => {
-                console.log(users)
                 this.setState({ users: users })
             })
     }
