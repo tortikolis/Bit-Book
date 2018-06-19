@@ -52,6 +52,7 @@ body {
   top: 10%;
   transform: scaleX(1) scaleY(1);
   z-index: 333333333;
+  overflow-y: initial;
 }
 
 #updateProfileWraper,#updateProfileFooter {
@@ -71,6 +72,11 @@ body {
   margin-left: 17px;
 }
 
+#uploadImageInput {
+  margin-left: 17px;
+  width: 100%;
+}
+
 #uploadBtn {
   width: 100%;
   margin-left: 17px;
@@ -88,7 +94,7 @@ body {
   margin-right: 15px;
 }
 
-input#description {
+input#description, input#imageUrl {
   width: 94%;
   margin-bottom: 40px;
 }
@@ -104,6 +110,10 @@ input#description {
 
 .profile-about {
   margin-bottom: 60px;
+}
+
+.red {
+  background-color: red;
 }
 
 .profile-holder {

@@ -27,6 +27,20 @@ export const fetchService = {
             .catch(error => console.error('Error:', error))
     },
 
+    upload(url, content) {
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Key': 'bitbookdev',
+                'SessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
+                
+            },
+            body: content
+        })
+            .then((response) => response.json())
+            .catch(error => console.error('Error:', error))
+    },
+
     put(url, formData) {
         return fetch(url, {
             method: 'PUT',
@@ -35,9 +49,9 @@ export const fetchService = {
                 'Key': 'bitbookdev',
                 'SessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
             },
-            body: formData
+            body: JSON.stringify(formData)
         })
-            .then(response => response.json())
+            .then(response => response)
             .catch(error => console.error('Error:', error))
     },
 
