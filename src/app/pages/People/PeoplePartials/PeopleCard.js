@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const PeopleCard = props => {
 
@@ -24,14 +25,19 @@ export const PeopleCard = props => {
     }
 
     return (
+            <div className="collection-item avatar" id='user-item'>
+            <Link to={`./user/${id}`}>
+            <li >
+                <img src={avatarUrl ? avatarUrl : placeholderImg} alt="" className="circle" />
+                <span className="title">{name}</span>
+                <p className="about">{aboutShort}</p>
+                <div className='last-update'>
+                    <p>{showLastPostTime()}</p>
+                </div>
+            </li>
+                </Link>
+            </ div>
 
-        <li className="collection-item avatar" id='user-item'>
-            <img src={avatarUrl ? avatarUrl : placeholderImg} alt="" className="circle" />
-            <span className="title">{name}</span>
-            <p className="about">{aboutShort}</p>
-            <div className='last-update'>
-                <p>{showLastPostTime()}</p>
-            </div>
-        </li>
+        
     )
 }

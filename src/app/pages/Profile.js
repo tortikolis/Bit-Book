@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react"
-import { fetchUser } from "../../services/userService";
+import { fetchProfile } from "../../services/userService";
 
 
-export class User extends Component {
+export class Profile extends Component {
     constructor() {
         super()
         this.state = {
@@ -11,8 +11,7 @@ export class User extends Component {
     }
 
     getUser = () => {
-        const id= this.props.match.params.id
-        fetchUser(id)
+        fetchProfile()
             .then(user => {
                 this.setState({ user: user })
             })
@@ -59,3 +58,6 @@ export class User extends Component {
         )
     }
 }
+
+
+

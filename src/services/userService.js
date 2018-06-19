@@ -1,5 +1,5 @@
 import { fetchService } from './fetchService';
-import { USERS } from '../shared/constants';
+import { USERS, USERSGET } from '../shared/constants';
 import { User } from '../entities/User';
 import { PROFILE } from "../shared/constants";
 import { Profile } from "../entities/Profile";
@@ -15,10 +15,19 @@ export const getAllUsers = () => {
 }
 
 
-export const fetchUser = () => {
+export const fetchProfile = () => {
     return fetchService.get(PROFILE)
     .then((response) => {
         const { userId, name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = response;
         return new Profile(userId, name, email, aboutShort, about, avatarUrl, postsCount, commentsCount);
     })
 }
+
+export const fetchUser = (id) => {
+    return fetchService.get(USERSGET + id)
+    .then((response) => {
+        const { userId, name, email, aboutShort, about, avatarUrl, postsCount, commentsCount } = response;
+        return new Profile(userId, name, email, aboutShort, about, avatarUrl, postsCount, commentsCount);
+    })
+}
+
