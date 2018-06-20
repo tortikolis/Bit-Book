@@ -4,6 +4,7 @@ import { Buttons } from './Buttons';
 import { FeedList } from './FeedList';
 import { getAllPosts } from '../../services/postFetch';
 
+
 export class Feed extends Component {
     constructor(props) {
         super(props)
