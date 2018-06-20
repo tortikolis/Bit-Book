@@ -21,7 +21,7 @@ export class Profile extends Component {
     }
 
     componentDidMount() {
-        this.getUser()
+        this.getUser();
     }
 
     resetButtonType = () => {
@@ -31,6 +31,7 @@ export class Profile extends Component {
     clickedBtn = event => {
         this.setState({ isModalActive: true });
     }
+
 
     render() {
         const { name, aboutShort, avatarUrl, postsCount, commentsCount } = this.state.user;
