@@ -50,6 +50,17 @@ body {
   z-index: 3333333;
 }
 
+#filter-select {
+  position: fixed;
+  top: 85px;
+  right: 15%;
+  width: 212px;
+}
+
+#filter-select input{
+  color: #888;
+}
+
 #block {
   display: block;
 }
@@ -256,6 +267,34 @@ footer .container {
     -webkit-transform: scale3D(0, 0, 1);
             transform: scale3D(0, 0, 1);
   } 
+}
+
+@media only screen and (max-width: 601px) {
+  #filter-select {
+    right: 7% !important;
+    width: 60px !important;
+  }
+
+  #filter-select ul li img{
+    float: none;
+    margin-left: 25px;
+  }
+
+}
+
+@media only screen and (max-width: 992px) {
+  #filter-select {
+    right: 9%;
+    width: 90px;
+    float: right;
+  }
+
+}
+
+@media only screen and (min-width: 1700px) {
+  #filter-select {
+    right: 16%;
+  }
 }
 
 
