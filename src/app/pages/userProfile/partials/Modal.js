@@ -10,13 +10,14 @@ export class Modal extends Component {
             descriptionValue: "",
             imageUrlValue: "",
             selectedImage: null,
-            imageIsUploaded: false
+            imageIsUploaded: false,
         }
     }
 
     
     updateNameValue = event => {
         this.setState({ fullNameValue: event.target.value})
+        console.log(this.state.fullNameValue);
     }
     
     updateDescriptionValue = event => {
@@ -24,7 +25,9 @@ export class Modal extends Component {
     }
     
     updateImageUrlValue = event => {
-        this.setState({ ImageUrlValue: event.target.value})
+        this.setState({ imageUrlValue: event.target.value})
+        console.log(this.state.imageUrlValue);
+        
     }
     
     fileChangedHandler = event => {
@@ -52,14 +55,25 @@ export class Modal extends Component {
         this.fetchProfile();
         this.uploadHandler();
         this.props.onCloseModal();
+        this.setState({imageIsUploaded: true})
     }
 
+    updateState = () => {
+        this.setState({fullNameValue: this.props.user.name})
+        this.setState({descriptionValue: this.props.user.aboutShort})
+        this.setState({imageUrlValue: this.props.user.avatarUrl})
+    }
 
+    componentWillReceiveProps() {
+        this.updateState();
+    }
+    
+    
     render() {
         if (!this.props.isModalActive) {
             return null
         }
-
+        
         return (
             
             <Fragment>
@@ -69,14 +83,13 @@ export class Modal extends Component {
                             <h4>Update Profile</h4>
                             <div className="row">
                                 <div className="col s12">
-
                                     <div className="card horizontal" id="updateProfileHolder">
                                         <div className="row">
                                             <div className="col s4">
                                                 <div className="card-image" id="updateProfileImg">
                                                     <img src={this.props.user.avatarUrl} alt="profile img"/>
                                                      <input type="file" onChange={this.fileChangedHandler} id="uploadImageInput"/>
-                                                    <a className="waves-effect waves-light btn" id="uploadBtn" onClick={this.uploadHandler}>Upload</a>
+                                                    <a className={`waves-effect waves-light btn ${this.state.selectedImage? "": "disabled"}`} id="uploadBtn" onClick={this.uploadHandler}>Upload</a>
                                                 </div>
                                             </div>
                                             <div className="col s8">
@@ -90,7 +103,7 @@ export class Modal extends Component {
                                         </div>
                                         <div className="row">
                                             <div className="col s12">
-                                                <input placeholder="Image url" id="imageUrl" type="text" className={`${this.state.imageIsUploaded? "none" : "block"}`} onChange={this.updateImageUrlValue} />
+                                                <input value={this.state.imageUrlValue} id="imageUrl" type="text" className={`${this.state.imageIsUploaded? "none" : "block"}`} onChange={this.updateImageUrlValue} />
                                                 <input value={this.state.descriptionValue} id="description" type="text" className="validate" onChange={this.updateDescriptionValue} />
                                             </div>
                                         </div>
