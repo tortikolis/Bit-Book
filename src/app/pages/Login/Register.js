@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 export class Register extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state ={
-            registerUsername : "",
+        this.state = {
+            registerUsername: "",
             registerPassword: "",
             registerName: "",
             registerEmail: "",
@@ -21,38 +21,40 @@ export class Register extends Component {
             name: registerName,
             email: registerEmail
         }
-        if(!this.isPasswordValid(registerPassword)){
+        //check if password valid
+        if (!this.isPasswordValid(registerPassword)) {
             this.setState({
                 errorMsg: "Password must be at least 6 characters long"
             })
             return false
         }
-        
+
+        //send request with data from state
         this.props.sendRegisterData(content)
-        .then((request) => {
-            if(!request){
-                console.log(request)
-                this.setState({
-                    errorMsg: request.error.message
-                })
-            }
-            return request
-        })
-        .then((response) => {
-            console.log(response)
-            this.setState({
-                registerUsername : "",
-                registerPassword: "",
-                registerName: "",
-                registerEmail: ""
+            .then((request) => {
+                if (!request) {
+                    console.log(request)
+                    this.setState({
+                        errorMsg: request.error.message
+                    })
+                }
+                return request
             })
-            window.location.reload();
-        })
+            .then((response) => {
+                console.log(response)
+                this.setState({
+                    registerUsername: "",
+                    registerPassword: "",
+                    registerName: "",
+                    registerEmail: ""
+                })
+                // window.location.reload();
+            })
     }
 
     isPasswordValid = (password) => {
         return password.length > 6;
-    } 
+    }
 
     onChangeHandler = (event) => {
         const elementId = event.target.id;
@@ -63,44 +65,44 @@ export class Register extends Component {
     }
 
 
-    render(){
-        
-        
-        return(
+    render() {
+
+
+        return (
             <div className="row">
-            <form className="col s12">
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input  id="registerName" type="text" className="validate" value={this.state.registerName} onChange={this.onChangeHandler}/>
-                        <label htmlFor="registerName">Name</label>
+                <form className="col s12">
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <input id="registerName" type="text" className="validate" value={this.state.registerName} onChange={this.onChangeHandler} />
+                            <label htmlFor="registerName">Name</label>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input  id="registerUsername" type="text" className="validate" value={this.state.registerUsername}  onChange={this.onChangeHandler}/>
-                        <label htmlFor="registerUsername">Username</label>
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <input id="registerUsername" type="text" className="validate" value={this.state.registerUsername} onChange={this.onChangeHandler} />
+                            <label htmlFor="registerUsername">Username</label>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input id="registerPassword" type="password" className="validate" value={this.state.registerPassword} onChange={this.onChangeHandler}/>
-                        <label htmlFor="registerPassword">Pass</label>
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <input id="registerPassword" type="password" className="validate" value={this.state.registerPassword} onChange={this.onChangeHandler} />
+                            <label htmlFor="registerPassword">Pass</label>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input id="registerEmail" type="email" className="validate" value={this.state.registerEmail} onChange={this.onChangeHandler}/>
-                        <label htmlFor="registerEmail">Email</label>
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <input id="registerEmail" type="email" className="validate" value={this.state.registerEmail} onChange={this.onChangeHandler} />
+                            <label htmlFor="registerEmail">Email</label>
+                        </div>
                     </div>
-                </div>
-                <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.registerHandler}>Register
+                    <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.registerHandler}>Register
                 <i className="material-icons right">account_box</i>
-                </button>
-                <p className="red-text">{this.state.errorMsg}</p>
-            </form>
-        </div>
+                    </button>
+                    <p className="red-text">{this.state.errorMsg}</p>
+                </form>
+            </div>
         )
 
     }
-    
+
 }

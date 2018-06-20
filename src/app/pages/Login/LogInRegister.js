@@ -3,7 +3,7 @@ import M from 'materialize-css'
 
 import { Login } from './Login'
 import { Register } from './Register'
-import { postRegister } from '../../../services/postFetch'
+import { postRegister, postLogin} from '../../../services/postFetch'
 
 export class LoginRegister extends Component {
     constructor(props) {
@@ -16,6 +16,10 @@ export class LoginRegister extends Component {
 
     sendRegisterData = (data) => {
         return postRegister(data)      
+    }
+
+    sendLoginData = (data) =>{
+        return postLogin(data)
     }
 
     componentDidMount() {
@@ -42,7 +46,7 @@ export class LoginRegister extends Component {
                             <li className="tab col s3"><a href="#test-swipe-2" className='teal-text' id='register'>Register</a></li>
                         </ul>
                         <div id="test-swipe-1" className="col s12 ">
-                            <Login  />
+                            <Login sendLoginData={this.sendLoginData} />
                         </div>
                         <div id="test-swipe-2" className="col s12 ">
                             <Register  sendRegisterData={this.sendRegisterData}/>

@@ -1,5 +1,5 @@
 import { fetchService } from "./fetchService";
-import { TEXTPOSTS, VIDEOPOSTS, IMAGEPOST, TEXTPOSTSGET, VIDEOPOSTSGET, IMAGEPOSTSGET,REGISTER } from "../shared/constants";
+import { TEXTPOSTS, VIDEOPOSTS, IMAGEPOST, TEXTPOSTSGET, VIDEOPOSTSGET, IMAGEPOSTSGET,REGISTER, LOGIN } from "../shared/constants";
 
 import { TextPost, VideoPost, ImagePost } from '../entities/Post';
 import { POSTS } from '../shared/constants';
@@ -64,3 +64,8 @@ export const postImage = content => {
 export const postRegister = content =>{
     return fetchService.post(REGISTER, content)    
 }
+export const postLogin = content =>{
+    return fetchService.post(LOGIN, content)    
+}
+
+
