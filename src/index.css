@@ -289,6 +289,10 @@ footer .container {
     float: right;
   }
 
+  #filter-select input{
+    font-size: 13px;
+  }
+
 }
 
 @media only screen and (min-width: 1700px) {
