@@ -54,11 +54,16 @@ body {
   position: fixed;
   top: 85px;
   right: 15%;
-  width: 212px;
+  width: 204px;
+  border-top: 1px solid #888;
 }
 
 #filter-select input{
   color: #888;
+}
+
+#filter-select .select-wrapper .caret {
+  fill: #888;
 }
 
 #block {
@@ -271,13 +276,36 @@ footer .container {
 
 @media only screen and (max-width: 601px) {
   #filter-select {
-    right: 7% !important;
+    right: 5% !important;
     width: 60px !important;
+  }
+
+  #filter-select input {
+    font-size: 0 !important;
   }
 
   #filter-select ul li img{
     float: none;
     margin-left: 25px;
+  }
+
+  #filter-select .dropdown-content ul{
+    height: auto !important;
+  }
+
+  #filter-select .dropdown-content li > span{
+    font-size: 0px !important;
+    padding: 0 !important;
+  }
+
+  #filter-select .dropdown-content li > img{
+    margin-top: 20px;
+  }
+ 
+  #filter-select .select-wrapper .caret {
+    height: 50px;
+    width: 50px;
+    right: -5px;
   }
 
 }
@@ -289,7 +317,11 @@ footer .container {
     float: right;
   }
 
-  #filter-select input{
+  #filter-select ul.dropdown-content.select-dropdown{
+    left: -10px !important;
+  }
+
+  #filter-select input, #filter-select .dropdown-content li > span{
     font-size: 13px;
   }
 
