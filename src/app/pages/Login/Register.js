@@ -1,38 +1,106 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export const Register = (props) =>{
+export class Register extends Component {
+    constructor(props){
+        super(props);
+        this.state ={
+            registerUsername : "",
+            registerPassword: "",
+            registerName: "",
+            registerEmail: "",
+            errorMsg: ""
+        }
+    }
 
-    return(
-        <div class="row">
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input  id="registerName" type="text" class="validate" onChange={props.onChangeHandler}/>
-                    <label for="registerName">Name</label>
+    registerHandler = (event) => {
+        event.preventDefault();
+        const { registerName, registerUsername, registerPassword, registerEmail } = this.state
+        const content = {
+            username: registerUsername,
+            password: registerPassword,
+            name: registerName,
+            email: registerEmail
+        }
+        if(!this.isPasswordValid(registerPassword)){
+            this.setState({
+                errorMsg: "Password must be at least 6 characters long"
+            })
+            return false
+        }
+        
+        this.props.sendRegisterData(content)
+        .then((request) => {
+            if(!request){
+                console.log(request)
+                this.setState({
+                    errorMsg: request.error.message
+                })
+            }
+            return request
+        })
+        .then((response) => {
+            console.log(response)
+            this.setState({
+                registerUsername : "",
+                registerPassword: "",
+                registerName: "",
+                registerEmail: ""
+            })
+            window.location.reload();
+        })
+    }
+
+    isPasswordValid = (password) => {
+        return password.length > 6;
+    } 
+
+    onChangeHandler = (event) => {
+        const elementId = event.target.id;
+        const elementValue = event.target.value;
+        this.setState({
+            [elementId]: elementValue
+        })
+    }
+
+
+    render(){
+        
+        
+        return(
+            <div className="row">
+            <form className="col s12">
+                <div className="row">
+                    <div className="input-field col s12">
+                        <input  id="registerName" type="text" className="validate" value={this.state.registerName} onChange={this.onChangeHandler}/>
+                        <label htmlFor="registerName">Name</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input  id="registerUsername" type="text" class="validate" onChange={props.onChangeHandler}/>
-                    <label for="registerUsername">Username</label>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <input  id="registerUsername" type="text" className="validate" value={this.state.registerUsername}  onChange={this.onChangeHandler}/>
+                        <label htmlFor="registerUsername">Username</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="registerPassword" type="password" class="validate" onChange={props.onChangeHandler}/>
-                    <label for="registerPassword">Pass</label>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <input id="registerPassword" type="password" className="validate" value={this.state.registerPassword} onChange={this.onChangeHandler}/>
+                        <label htmlFor="registerPassword">Pass</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="registerEmail" type="email" class="validate" onChange={props.onChangeHandler}/>
-                    <label for="registerEmail">Email</label>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <input id="registerEmail" type="email" className="validate" value={this.state.registerEmail} onChange={this.onChangeHandler}/>
+                        <label htmlFor="registerEmail">Email</label>
+                    </div>
                 </div>
-            </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action" onClick={props.registerHandler}>Register
-            <i class="material-icons right">account_box</i>
-            </button>
-        </form>
-    </div>
-    )
+                <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.registerHandler}>Register
+                <i className="material-icons right">account_box</i>
+                </button>
+                <p className="red-text">{this.state.errorMsg}</p>
+            </form>
+        </div>
+        )
+
+    }
+    
 }

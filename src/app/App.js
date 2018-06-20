@@ -25,7 +25,7 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <Header />
+        {window.location.href !== "http://localhost:3000/#/login" && <Header /> }
         <Switch>
           <Route path='/user/:id' component={UserPage} />
           <Route path='/post/:type/:id' component={PostContent} />
@@ -34,7 +34,7 @@ class App extends Component {
           <Route path='/login' component={LoginRegister} />
           <Route path='/' component={Feed} />
         </Switch>
-        <Footer />
+        {window.location.href !== "http://localhost:3000/#/login" && <Footer /> }
       </Fragment>
     );
   }

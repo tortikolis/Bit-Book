@@ -24,7 +24,7 @@ export const fetchService = {
             body: JSON.stringify(content)
         })
             .then((response) => response.json())
-            .catch(error => console.error('Error:', error))
+        
     },
 
     upload(url, content) {

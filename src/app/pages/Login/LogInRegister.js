@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import M from 'materialize-css'
 
 import { Login } from './Login'
 import { Register } from './Register'
@@ -7,46 +8,25 @@ import { postRegister } from '../../../services/postFetch'
 export class LoginRegister extends Component {
     constructor(props) {
         super(props)
-
+        this.activeTab = React.createRef();
         this.state = {
-            
+         
         }
     }
 
-    sendRegisterData = (data) =>{
-        postRegister(data)
-        .then((res) => {
-            console.log(res)
-        })
+    sendRegisterData = (data) => {
+        return postRegister(data)      
     }
 
-
-    registerHandler =(event) =>{
-        event.preventDefault();
-        const {registerName, registerUsername,registerPassword,registerEmail} = this.state
-        const content = {
-            username: registerUsername,
-            password: registerPassword,
-            name: registerName,
-            email: registerEmail
-        }
-        console.log(content);
-        this.sendRegisterData(content)
-        
+    componentDidMount() {
+        M.Tabs.init(this.activeTab.current);
     }
-
-    onChangeHandler = (event) => {
-        const elementId = event.target.id;
-        const elementValue = event.target.value;
-        this.setState({
-            [elementId] : elementValue
-        })
-    }
-
-
 
 
     render() {
+        console.log(window.location.href);
+        
+        const { registerName, registerUsername, registerPassword, registerEmail } = this.state;
         return (
             <div className="container" id='login'>
                 <div className='row'>
@@ -57,15 +37,15 @@ export class LoginRegister extends Component {
                         </p>
                     </div>
                     <div className='col s12 m6 ' id='login-form'>
-                        <ul id="tabs-swipe-demo" class="tabs">
-                            <li class="tab col s3"><a href="#test-swipe-1" className='teal-text' id='register'>Register</a></li>
-                            <li class="tab col s3"><a className="active teal-text" href="#test-swipe-2">Login</a></li>
+                        <ul id="tabs-swipe-demo" className="tabs" ref={this.activeTab}>
+                            <li className="tab col s3"><a className="active teal-text" href="#test-swipe-1" >Login</a></li>
+                            <li className="tab col s3"><a href="#test-swipe-2" className='teal-text' id='register'>Register</a></li>
                         </ul>
-                        <div id="test-swipe-1" class="col s12 ">
-                            <Register onChangeHandler={this.onChangeHandler} registerHandler={this.registerHandler}/>
+                        <div id="test-swipe-1" className="col s12 ">
+                            <Login  />
                         </div>
-                        <div id="test-swipe-2" class="col s12 ">
-                            <Login onChangeHandler={this.onChangeHandler}/>
+                        <div id="test-swipe-2" className="col s12 ">
+                            <Register  sendRegisterData={this.sendRegisterData}/>
                         </div>
                     </div>
                 </div>
