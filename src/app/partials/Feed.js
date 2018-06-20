@@ -3,6 +3,7 @@ import { Modals } from './Modals';
 import { Buttons } from './Buttons';
 import { FeedList } from './FeedList';
 import { getAllPosts } from '../../services/postFetch';
+import { FilterPost } from './FilterPost';
 
 
 export class Feed extends Component {
@@ -12,6 +13,7 @@ export class Feed extends Component {
         this.state = {
             posts: [],
             buttonType: null,
+            selectedOption: null,
         }
     }
 
@@ -33,6 +35,11 @@ export class Feed extends Component {
         this.setState({ buttonType: targetBtn });
     }
 
+    selectedPost = event => {
+        let selectedOpt = event.target.value;
+        this.setState({ selectedOption: selectedOpt });
+    }
+
 
     componentDidMount() {
         this.getPosts()
@@ -43,7 +50,8 @@ export class Feed extends Component {
         return (
             <div className="row container feed">
                 <div className="col s12">
-                    <FeedList posts={this.state.posts} />
+                    <FeedList posts={this.state.posts} selectedOption={this.state.selectedOption}/>
+                    <FilterPost selectedPost={this.selectedPost}/>
                     <Modals buttonType={this.state.buttonType} closeModal={this.resetButtonType} changeState={this.getPosts} />
                     <Buttons activeBtn={this.clickedBtn} />
                 </div>
