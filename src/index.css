@@ -258,6 +258,22 @@ footer .container {
   } 
 }
 
+#login{
+  margin-top: 10%;
+  
+}
+#login-text{
+  padding: 50px;
+}
+
+#login-text h3{
+  color:#00acc1 ;
+}
+
+#register:active{
+  color:black;
+}
+
 
 
 

@@ -10,8 +10,9 @@ import { Footer } from './partials/Footer';
 import { Feed } from './partials/Feed';
 import { PostContent } from './partials/PostContent';
 import { Profile } from './pages/userProfile/Profile';
-import { PeoplePage } from './pages/People/PeoplePage'
-import { UserPage } from './pages/UserPage'
+import { PeoplePage } from './pages/People/PeoplePage';
+import { UserPage } from './pages/UserPage';
+import { LoginRegister } from './pages/Login/LogInRegister'
 
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path='/post/:type/:id' component={PostContent} />
           <Route path='/people' component={ PeoplePage } />
           <Route path='/profile' component={Profile}/>
+          <Route path='/login' component={LoginRegister} />
           <Route path='/' component={Feed} />
         </Switch>
         <Footer />
