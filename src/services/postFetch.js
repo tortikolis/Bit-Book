@@ -7,6 +7,14 @@ import { POSTS } from '../shared/constants';
 
 export const getAllPosts = () => {
     return fetchService.get(POSTS)
+        .then((response) =>{
+            return response.filter(post => {
+                if(post.videoUrl){
+                    return post.videoUrl.includes('youtube')
+                }
+                return true;
+            })
+        })
         .then((response) => {
             return response.map((post) => {
                 const { videoUrl, imageUrl, text, id, dateCreated, userId, userDisplayName, type, commentsNum } = post;
@@ -65,7 +73,15 @@ export const postRegister = content =>{
     return fetchService.post(REGISTER, content)    
 }
 export const postLogin = content =>{
-    return fetchService.post(LOGIN, content)    
+    return fetchService.post(LOGIN, content)
+        .then((response) => {
+            if (response.error) {
+                return response;
+            }
+
+            localStorage.setItem("sessionId", response.sessionId)
+            return response;
+        })
 }
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
 
-export class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
 
@@ -11,30 +12,36 @@ export class Login extends Component {
         }
     }
 
-    loginHandler = (event) =>{
+    loginHandler = (event) => {
         event.preventDefault();
-        const {loginName, loginPassword} = this.state;
-        const content={
-            name: loginName,
+        const { loginName, loginPassword } = this.state;
+        const content = {
+            username: loginName,
             password: loginPassword
         }
-        this.props.sendLoginData(content)
-        .then((request) => {
-            if(!request){
-                console.log(request)
-                this.setState({
-                    errorMsg: request.error.message
-                })
-            }
-            return request
+
+        this.sendLoginForm(content)
+    }
+
+    resetLoginForm = () => {
+        this.setState({
+            loginName: "",
+            loginPassword: ""
         })
-        .then((response) =>{
-            this.setState({
-                loginName: "",
-                loginPassword: ""
-            }) 
-            
-        })
+    }
+
+    goToHomepage = () => this.props.history.push("/");
+
+    sendLoginForm = (data) => {
+        this.props.sendLoginData(data)
+            .then(({error}) => {
+                if (error) {
+                    return this.setState({errorMsg: error.message})
+                }
+
+                this.resetLoginForm();
+                this.goToHomepage();
+            })
     }
 
     onChangeHandler = (event) => {
@@ -53,7 +60,7 @@ export class Login extends Component {
                 <form className="col s12">
                     <div className="row">
                         <div className="input-field col s12">
-                            <input id="loginName" type="text" className="validate" required  onChange={this.onChangeHandler}/>
+                            <input id="loginName" type="text" className="validate" required onChange={this.onChangeHandler} />
                             <label htmlFor="loginName">Username</label>
                         </div>
                     </div>
@@ -74,3 +81,5 @@ export class Login extends Component {
     }
 
 }
+
+export default withRouter(Login)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import M from 'materialize-css'
 
-import { Login } from './Login'
+import Login from './Login'
 import { Register } from './Register'
 import { postRegister, postLogin} from '../../../services/postFetch'
 
@@ -9,6 +9,8 @@ export class LoginRegister extends Component {
     constructor(props) {
         super(props)
         this.activeTab = React.createRef();
+        this.loginTab = React.createRef();
+        this.tabs = null;
         this.state = {
          
         }
@@ -18,17 +20,17 @@ export class LoginRegister extends Component {
         return postRegister(data)      
     }
 
-    sendLoginData = (data) =>{
-        return postLogin(data)
-    }
 
     componentDidMount() {
-        M.Tabs.init(this.activeTab.current);
+        this.tabs = M.Tabs.init(this.activeTab.current);
+    }
+
+    onSuccessfulRegistration = () => {
+        this.tabs.select('test-swipe-1');
     }
 
 
     render() {
-        console.log(window.location.href);
         
         const { registerName, registerUsername, registerPassword, registerEmail } = this.state;
         return (
@@ -42,14 +44,14 @@ export class LoginRegister extends Component {
                     </div>
                     <div className='col s12 m6 ' id='login-form'>
                         <ul id="tabs-swipe-demo" className="tabs" ref={this.activeTab}>
-                            <li className="tab col s3"><a className="active teal-text" href="#test-swipe-1" >Login</a></li>
-                            <li className="tab col s3"><a href="#test-swipe-2" className='teal-text' id='register'>Register</a></li>
+                            <li className="tab col s6 "><a className="active teal-text" href="#test-swipe-1" ref={this.loginTab} id='login-tab'>Login</a></li>
+                            <li className="tab col s6 "><a href="#test-swipe-2" className='teal-text ' id='register'>Register</a></li>
                         </ul>
                         <div id="test-swipe-1" className="col s12 ">
-                            <Login sendLoginData={this.sendLoginData} />
+                            <Login sendLoginData={postLogin} />
                         </div>
                         <div id="test-swipe-2" className="col s12 ">
-                            <Register  sendRegisterData={this.sendRegisterData}/>
+                            <Register  sendRegisterData={this.sendRegisterData} loginTab={this.loginTab} activeTab={this.activeTab} onRegister={this.onSuccessfulRegistration}/>
                         </div>
                     </div>
                 </div>

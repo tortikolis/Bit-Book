@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import M from 'materialize-css';
 
 export class Register extends Component {
     constructor(props) {
@@ -14,6 +15,7 @@ export class Register extends Component {
 
     registerHandler = (event) => {
         event.preventDefault();
+
         const { registerName, registerUsername, registerPassword, registerEmail } = this.state
         const content = {
             username: registerUsername,
@@ -22,38 +24,53 @@ export class Register extends Component {
             email: registerEmail
         }
         //check if password valid
-        if (!this.isPasswordValid(registerPassword)) {
-            this.setState({
-                errorMsg: "Password must be at least 6 characters long"
-            })
-            return false
+        if (content.password.length < 6) {
+            this.invalidPassword()
+            return;
+        }
+        if (!content.email.includes('@')) {
+            return this.setError("Email is not valid")
         }
 
+        this.sendRegistrationForm(content);
+    }
+
+    sendRegistrationForm = (data) => {
         //send request with data from state
-        this.props.sendRegisterData(content)
-            .then((request) => {
-                if (!request) {
-                    console.log(request)
-                    this.setState({
-                        errorMsg: request.error.message
-                    })
-                }
-                return request
-            })
+        this.props.sendRegisterData(data)
             .then((response) => {
-                console.log(response)
+                //if bad response
+                if (response.error) {
+                    this.setState({
+                        errorMsg: response.error.message
+                    })
+                    return response
+                }
+                //if good response
                 this.setState({
                     registerUsername: "",
                     registerPassword: "",
                     registerName: "",
                     registerEmail: ""
                 })
-                // window.location.reload();
+                //const instance = M.Tabs.getInstance(this.props.activeTab)
+                //instance.select('#login-tab')
+                // window.location.reload()
+                this.props.onRegister();
             })
+
     }
 
-    isPasswordValid = (password) => {
-        return password.length > 6;
+    invalidPassword = () => {
+        this.setState({
+            errorMsg: "Password must be at least 6 characters long"
+        })
+    }
+
+    setError = (message) => {
+        this.setState({
+            errorMsg: message
+        })
     }
 
     onChangeHandler = (event) => {
@@ -64,10 +81,12 @@ export class Register extends Component {
         })
     }
 
+    componentDidMount() {
+        //M.Tabs.init(this.props.activeTab.current);
+    }
+
 
     render() {
-
-
         return (
             <div className="row">
                 <form className="col s12">

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import 'materialize-css/dist/css/materialize.css'
 import M from 'materialize-css'
@@ -12,7 +12,8 @@ import { PostContent } from './partials/PostContent';
 import { Profile } from './pages/userProfile/Profile';
 import { PeoplePage } from './pages/People/PeoplePage';
 import { UserPage } from './pages/UserPage';
-import { LoginRegister } from './pages/Login/LogInRegister'
+import { LoginRegister } from './pages/Login/LogInRegister';
+import { isUserLogged } from '../services/authService'
 
 
 class App extends Component {
@@ -23,20 +24,30 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props.location)
     return (
-      <Fragment>
-        {window.location.href !== "http://localhost:3000/#/login" && <Header /> }
-        <Switch>
-          <Route path='/user/:id' component={UserPage} />
-          <Route path='/post/:type/:id' component={PostContent} />
-          <Route path='/people' component={ PeoplePage } />
-          <Route path='/profile' component={Profile}/>
-          <Route path='/login' component={LoginRegister} />
-          <Route path='/' component={Feed} />
-        </Switch>
-        {window.location.href !== "http://localhost:3000/#/login" && <Footer /> }
-      </Fragment>
-    );
+        isUserLogged()
+        ? (
+          <Fragment>
+            <Header />
+            <Switch>
+              <Route path='/user/:id' component={UserPage} />
+              <Route path='/post/:type/:id' component={PostContent} />
+              <Route path='/people' component={PeoplePage} />
+              <Route path='/profile' component={Profile} />
+
+              <Route path='/feed' component={Feed} />
+              <Redirect path='/' to='/feed' />
+            </Switch>
+            <Footer />
+          </Fragment>)
+        : (
+          <Switch>
+            <Route exact path='/' component={LoginRegister} />
+            <Redirect path='/' to='/' />
+          </Switch>)
+
+    )
   }
 }
 
