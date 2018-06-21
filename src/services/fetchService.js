@@ -1,13 +1,25 @@
-const sessionId = localStorage.getItem("sessionId")
+
+
+const getHeaders = () => {
+    const sessionId = localStorage.getItem("sessionId")
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Key': 'bitbookdev',
+        
+    };
+    
+    if (sessionId) {
+        headers["sessionId"] = sessionId;
+    }
+
+    return headers;
+}
 
 export const fetchService = {
     get(url) {
         return fetch(url, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Key': 'bitbookdev',
-                'SessionId': sessionId
-            }
+            headers: getHeaders()
         })
             .then((response) => response.json())
             .catch(error => console.error('Error:', error))
@@ -16,12 +28,7 @@ export const fetchService = {
     post(url, content) {
         return fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Key': 'bitbookdev',
-                'SessionId': sessionId
-
-            },
+            headers: getHeaders(),
             body: JSON.stringify(content)
         })
             .then((response) => response.json())
@@ -31,11 +38,7 @@ export const fetchService = {
     upload(url, content) {
         return fetch(url, {
             method: 'POST',
-            headers: {
-                'Key': 'bitbookdev',
-                'SessionId': sessionId
-                
-            },
+            headers: getHeaders(),
             body: content
         })
             .then((response) => response.json())
@@ -45,11 +48,7 @@ export const fetchService = {
     put(url, formData) {
         return fetch(url, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Key': 'bitbookdev',
-                'SessionId': sessionId
-            },
+            headers: getHeaders(),
             body: JSON.stringify(formData)
         })
             .then(response => response)
@@ -59,11 +58,7 @@ export const fetchService = {
     delete(url, item) {
         return fetch(url + '/' + item, {
             method: 'delete',
-            headers: {
-                'Content-Type': 'application/json',
-                'Key': 'bitbookdev',
-                'SessionId': sessionId
-            }
+            headers: getHeaders(),
         })
             .then(response => response.json())
             .catch(error => console.error('Error:', error))

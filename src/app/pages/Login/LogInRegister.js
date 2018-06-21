@@ -3,7 +3,7 @@ import M from 'materialize-css'
 
 import Login from './Login'
 import { Register } from './Register'
-import { postRegister, postLogin} from '../../../services/postFetch'
+import { postRegister, postLogin} from '../../../services/authService'
 
 export class LoginRegister extends Component {
     constructor(props) {
@@ -32,7 +32,7 @@ export class LoginRegister extends Component {
 
     render() {
         
-        const { registerName, registerUsername, registerPassword, registerEmail } = this.state;
+       
         return (
             <div className="container" id='login'>
                 <div className='row'>
