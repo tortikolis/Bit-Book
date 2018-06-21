@@ -32,7 +32,9 @@ export class FeedList extends Component {
         if (selectedOption === "text") {
             return (
                 <div>
-                    {posts.map((post, key) => <TextPost key={key} post={post} />)}
+                    {posts.map((post, key) => {if (post.type === 'text') {
+                        return <TextPost key={key} post={post} />
+                    }})}
                 </div>
             )
         }
@@ -40,7 +42,9 @@ export class FeedList extends Component {
         if (selectedOption === "image") {
             return (
                 <div>
-                    {posts.map((post, key) => <ImagePost key={key} post={post} />)}
+                    {posts.map((post, key) => {if (post.type === 'image') {
+                        return <ImagePost key={key} post={post} />
+                    }})}
                 </div>
             )
         }
@@ -48,7 +52,9 @@ export class FeedList extends Component {
         if (selectedOption === "video") {
             return (
                 <div>
-                    {posts.map((post, key) => <VideoPost key={key} post={post} />)}
+                    {posts.map((post, key) => {if (post.type === 'video') {
+                        return <VideoPost key={key} post={post} />
+                    }})}
                 </div>
             )
         }
