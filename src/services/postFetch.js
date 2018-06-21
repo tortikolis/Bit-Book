@@ -70,8 +70,9 @@ export const postImage = content => {
 }
 
 export const postRegister = content =>{
-    return fetchService.post(REGISTER, content)    
+    return fetchService.post(REGISTER, content) 
 }
+
 export const postLogin = content =>{
     return fetchService.post(LOGIN, content)
         .then((response) => {

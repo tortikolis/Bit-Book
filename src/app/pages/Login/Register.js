@@ -25,8 +25,7 @@ export class Register extends Component {
         }
         //check if password valid
         if (content.password.length < 6) {
-            this.invalidPassword()
-            return;
+            return this.setError("Password must be at least 6 characters long")
         }
         if (!content.email.includes('@')) {
             return this.setError("Email is not valid")
@@ -35,27 +34,24 @@ export class Register extends Component {
         this.sendRegistrationForm(content);
     }
 
+    resetRegisterForm = () =>{
+        this.setState({
+            registerUsername: "",
+            registerPassword: "",
+            registerName: "",
+            registerEmail: ""
+        })
+    }
+
     sendRegistrationForm = (data) => {
-        //send request with data from state
         this.props.sendRegisterData(data)
-            .then((response) => {
-                //if bad response
-                if (response.error) {
-                    this.setState({
-                        errorMsg: response.error.message
-                    })
-                    return response
+            .then(({error}) => {
+
+                if (error) {
+                    return this.setState({errorMsg: error.message})
                 }
-                //if good response
-                this.setState({
-                    registerUsername: "",
-                    registerPassword: "",
-                    registerName: "",
-                    registerEmail: ""
-                })
-                //const instance = M.Tabs.getInstance(this.props.activeTab)
-                //instance.select('#login-tab')
-                // window.location.reload()
+
+                this.resetRegisterForm();
                 this.props.onRegister();
             })
 
@@ -80,11 +76,6 @@ export class Register extends Component {
             [elementId]: elementValue
         })
     }
-
-    componentDidMount() {
-        //M.Tabs.init(this.props.activeTab.current);
-    }
-
 
     render() {
         return (

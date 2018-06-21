@@ -8,6 +8,7 @@ import { getVideoPost, getImagePost, getTextPost } from '../../services/postFetc
 import { CommentForm } from './CommentForm';
 import { Loading } from './Loading';
 import { postComment } from '../../services/commentFetch';
+import { fetchProfile } from '../../services/userService'
 
 export class PostContent extends Component {
     constructor(props) {
@@ -16,8 +17,18 @@ export class PostContent extends Component {
         this.state = {
             post: null,
             comments: [],
-            commentInput: ''
+            commentInput: '',
+            profile: null
         }
+    }
+
+    getProfileInfo = () => {
+        fetchProfile()
+        .then((profileInfo) => {
+            this.setState({
+                profile: profileInfo
+            })
+        })
     }
 
     getVideoPostData = () => {
@@ -47,7 +58,6 @@ export class PostContent extends Component {
             })
     }
 
-    //handling comments
     getCommentsData = () => {
         getComments(this.props.match.params.id)
             .then((commentList) => {
@@ -64,11 +74,12 @@ export class PostContent extends Component {
 
     sendComment = (comment) => {
         const id = this.props.match.params.id;
+        const authorId = this.state.profile.authorId;
 
         const content = {
             body: comment,
             postId: id,
-            authorId: 793
+            authorId: authorId
         }
         postComment(content)
             .then(() => this.getCommentsData())
@@ -85,6 +96,7 @@ export class PostContent extends Component {
         }
 
         this.getCommentsData()
+        this.getProfileInfo()
     }
 
 
