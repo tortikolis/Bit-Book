@@ -6,7 +6,7 @@ import { POSTS } from '../shared/constants';
 
 
 export const getAllPosts = () => {
-    return fetchService.get(`${POSTS}?$top=${10}`)
+    return fetchService.get(POSTS)
         .then((response) => {
             return response.map((post) => {
                 const { videoUrl, imageUrl, text, id, dateCreated, userId, userDisplayName, type, commentsNum } = post;
