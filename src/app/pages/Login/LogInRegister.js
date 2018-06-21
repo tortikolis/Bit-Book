@@ -12,7 +12,7 @@ export class LoginRegister extends Component {
         this.loginTab = React.createRef();
         this.tabs = null;
         this.state = {
-         
+            succsessMsg: ""
         }
     }
 
@@ -27,6 +27,7 @@ export class LoginRegister extends Component {
 
     onSuccessfulRegistration = () => {
         this.tabs.select('test-swipe-1');
+        this.setState({succsessMsg: "Your registration was successfull!"})
     }
 
 
@@ -43,6 +44,7 @@ export class LoginRegister extends Component {
                         </p>
                     </div>
                     <div className='col s12 m6 ' id='login-form'>
+                        <p className='green-text'>{this.state.succsessMsg}</p>
                         <ul id="tabs-swipe-demo" className="tabs" ref={this.activeTab}>
                             <li className="tab col s6 "><a className="active teal-text" href="#test-swipe-1" ref={this.loginTab} id='login-tab'>Login</a></li>
                             <li className="tab col s6 "><a href="#test-swipe-2" className='teal-text ' id='register'>Register</a></li>

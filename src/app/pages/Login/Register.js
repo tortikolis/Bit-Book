@@ -39,7 +39,8 @@ export class Register extends Component {
             registerUsername: "",
             registerPassword: "",
             registerName: "",
-            registerEmail: ""
+            registerEmail: "",
+            errorMsg: ""
         })
     }
 

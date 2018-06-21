@@ -26,7 +26,8 @@ class Login extends Component {
     resetLoginForm = () => {
         this.setState({
             loginName: "",
-            loginPassword: ""
+            loginPassword: "",
+            errorMsg: ""
         })
     }
 

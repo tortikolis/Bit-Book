@@ -6,7 +6,7 @@ import { logOut }  from '../../services/authService'
 class Header extends Component {
 
     onLogout = (event) => {
-        //event.preventDefault()
+        event.preventDefault()
         logOut();
         this.props.history.push("/")
     } 
@@ -23,7 +23,7 @@ class Header extends Component {
                                 <li><Link to="/">Feed</Link></li>
                                 <li><Link to='/people'>People</Link></li>
                                 <li><Link to="/profile">Profile</Link></li>
-                                <li><i className="material-icons" onClick={this.onLogout}>power_settings_new</i></li>
+                                <li><a href=''><i className="material-icons" onClick={this.onLogout}>power_settings_new</i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -32,7 +32,7 @@ class Header extends Component {
                     <li><Link to="/">Feed</Link></li>
                     <li><Link to='/people'>People</Link></li>
                     <li><Link to="/profile">Profile</Link></li>
-                    <li><a>Logout<i className="material-icons" onClick={this.onLogout}>power_settings_new</i></a></li>
+                    <li><a href=''><i className="material-icons" onClick={this.onLogout}>power_settings_new</i>Logout</a></li>
                 </ul>
             </div>
         )
