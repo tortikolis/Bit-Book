@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react"
-import { fetchProfile, fetchUser } from "../../services/userService";
+import { fetchUser } from "../../services/userService";
 
 
 export class UserPage extends Component {
