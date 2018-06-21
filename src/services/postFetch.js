@@ -10,7 +10,7 @@ export const getAllPosts = () => {
                 if (post.videoUrl) {
                     return post.videoUrl.includes('youtube')
                 }
-                return true;
+                return response;
             })
         })
         .then((response) => {
@@ -67,7 +67,6 @@ export const getImagePost = (id) => {
 
 export const getTextPost = (id) => {
     return fetchService.get(TEXTPOSTSGET + id)
-
         .then((response) => {
             const { text, id, dateCreated, userId, userDisplayName, type, commentsNum } = response;
             return new TextPost(text, id, dateCreated, userId, userDisplayName, type, commentsNum);
@@ -75,6 +74,7 @@ export const getTextPost = (id) => {
 }
 export const postText = content => {
     return fetchService.post(TEXTPOSTS, content)
+    
 }
 
 export const postVideo = content => {
