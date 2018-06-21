@@ -1,5 +1,5 @@
 import { fetchService } from "./fetchService";
-import { TEXTPOSTS, VIDEOPOSTS, IMAGEPOST, TEXTPOSTSGET, VIDEOPOSTSGET, IMAGEPOSTSGET } from "../shared/constants";
+import { TEXTPOSTS, VIDEOPOSTS, IMAGEPOST, TEXTPOSTSGET, VIDEOPOSTSGET, IMAGEPOSTSGET, REGISTER, LOGIN } from "../shared/constants";
 
 import { TextPost, VideoPost, ImagePost } from '../entities/Post';
 import { POSTS } from '../shared/constants';
@@ -7,12 +7,12 @@ import { POSTS } from '../shared/constants';
 
 export const getAllPosts = () => {
     return fetchService.get(POSTS)
-        .then(response => {
+        .then((response) => {
             return response.filter(post => {
-                if(post.videoUrl) {
-                    return post.videoUrl.includes("youtube")
+                if (post.videoUrl) {
+                    return post.videoUrl.includes('youtube')
                 }
-                return true
+                return true;
             })
         })
         .then((response) => {
@@ -86,3 +86,21 @@ export const postVideo = content => {
 export const postImage = content => {
     return fetchService.post(IMAGEPOST, content)
 }
+
+export const postRegister = content => {
+    return fetchService.post(REGISTER, content)
+}
+
+export const postLogin = content => {
+    return fetchService.post(LOGIN, content)
+        .then((response) => {
+            if (response.error) {
+                return response;
+            }
+
+            localStorage.setItem("sessionId", response.sessionId)
+            return response;
+        })
+}
+
+

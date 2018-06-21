@@ -309,6 +309,23 @@ footer .container {
   } 
 }
 
+#login{
+  margin-top: 10%;
+  
+}
+#login-text{
+  padding: 50px;
+}
+
+#login-text h3{
+  color:#00acc1 ;
+}
+
+#register:active{
+  color:black;
+}
+
+
 @media only screen and (max-width: 601px) {
   #filter-select {
     right: 5% !important;
