@@ -67,18 +67,18 @@ export class Modals extends Component {
         event.preventDefault();
         this.setState({ inputVideoValue: event.target.value });
     }
-    // u validaciji radimo sam post request, verovatno potrebno da bude obrnuto tj da validaciju pozivamo u createPost
-    validateForm = event => {
-        event.preventDefault();
+
+
+    validateForm = () => {
         const { buttonType } = this.props;
         const { inputImageValue, inputTextValue, inputVideoValue } = this.state;
         if (buttonType === "text") {
             if (!inputTextValue) {
                 this.setState({ errorMessage: "Input invalid, please enter something" })
+                return false
             } else {
-                this.setState({ errorMessage: "" });
-                this.createTextPost()
-                this.props.closeModal();
+                this.emptyErrorMessage();
+                return buttonType
             }
         }
         if (buttonType === "image") {
@@ -86,26 +86,30 @@ export class Modals extends Component {
                 this.setState({ errorMessage: "Input invalid, please enter something" })
             } else if (!inputImageValue.includes(".jpg" || ".png" || ".svg" || ".gif" || ".bmp" || ".jpeg")) {
                 this.setState({ errorMessage: "Input invalid, please enter valid img format" })
+                return false
             } else {
-                this.setState({ errorMessage: "" })
-                this.createImagePost();
-                this.props.closeModal();
+                this.emptyErrorMessage();
+                return buttonType
             }
         }
         if (buttonType === "video") {
             if (!inputVideoValue || !inputVideoValue.includes("https://www.youtube.com/watch?v=")) {
                 this.setState({ errorMessage: "Input invalid, please enter valid youtube url" })
+                return false
             } else {
-                this.setState({ errorMessage: "" });
-                this.createVideoPost();
-                this.props.closeModal();
+                this.emptyErrorMessage();
+                return buttonType
             }
         }
     }
 
+    emptyErrorMessage = () => {
+        this.setState({ errorMessage: "" });
+    }
+
     createTextPost = () => {
         postText({ text: this.state.inputTextValue })
-            .then(() => this.props.changeState());//mozda ova funkcija ne treba da se zove changeState vec refreshPosts ili nesto
+            .then(() => this.props.changeState());
     }
 
     createImagePost = () => {
@@ -119,6 +123,17 @@ export class Modals extends Component {
             .then(() => this.props.changeState());
     }
 
+    createPost = event => {
+        event.preventDefault();
+        let postType = this.validateForm()
+        if (postType) {
+            postType === "text" && this.createTextPost();
+            postType === "image" && this.createImagePost();
+            postType === "video" && this.createVideoPost();
+            this.props.closeModal();
+        }
+    }
+
     render() {
         const { buttonType } = this.props;
         if (!buttonType) {
@@ -130,12 +145,13 @@ export class Modals extends Component {
                 <div className="modal-holder" onClick={this.onCloseModal}>
                     <div className="modal open" id="show-modal">
                         <div className="modal-content">
+                            <span className="modal-exit" onClick={this.props.closeModal}> X </span>
                             {buttonType === 'text' && this.renderTextForm()}
                             {buttonType === 'image' && this.renderImageForm()}
                             {buttonType === 'video' && this.renderVideoForm()}
                             <div className="modal-footer">
-                            {/* mozda potrebno promeniti href */}
-                                <a href="#!" className="modal-close waves-effect waves-green btn btn" onClick={this.validateForm}>POST</a>
+                                {/* mozda potrebno promeniti href */}
+                                <a href="#!" className="modal-close waves-effect waves-green btn btn" onClick={this.createPost}>POST</a>
                             </div>
                         </div>
                     </div>

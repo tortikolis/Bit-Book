@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modals } from './Modals';
 import { Buttons } from './Buttons';
 import { FeedList } from './FeedList';
-import { getAllPosts } from '../../services/postFetch';
+import { getAllPosts, getLastTenPosts } from '../../services/postFetch';
 import { FilterPost } from './FilterPost';
 
 
@@ -14,8 +14,11 @@ export class Feed extends Component {
             posts: [],
             buttonType: null,
             selectedOption: null,
+            skip: 0,
+            top: 10
         }
     }
+
 
     getPosts = () => {
         getAllPosts()
@@ -25,6 +28,20 @@ export class Feed extends Component {
                 })
             })
     }
+
+
+    // getPosts = () => {
+    //     getLastTenPosts(this.state.top, this.state.skip)
+    //         .then((postList) => {
+    //             console.log(this.state.skip);
+
+    //             this.setState({
+    //                 posts: postList,
+    //                 skip: this.state.skip + 10,
+    //                 top: this.state.top + 10
+    //             })
+    //         })
+    // }
 
     resetButtonType = () => {
         this.setState({ buttonType: null })
@@ -50,10 +67,15 @@ export class Feed extends Component {
         return (
             <div className="row container feed">
                 <div className="col s12">
-                    <FeedList posts={this.state.posts} selectedOption={this.state.selectedOption}/>
-                    <FilterPost selectedPost={this.selectedPost}/>
+                    <FeedList posts={this.state.posts} selectedOption={this.state.selectedOption} />
+                    <FilterPost selectedPost={this.selectedPost} />
                     <Modals buttonType={this.state.buttonType} closeModal={this.resetButtonType} changeState={this.getPosts} />
                     <Buttons activeBtn={this.clickedBtn} />
+                    {/* <div className="row">
+                        <div className="col s8">
+                                    <span className="load-more" onClick={this.getPosts}>Load more posts</span>
+                        </div>
+                    </div> */}
                 </div>
             </div>
         )
