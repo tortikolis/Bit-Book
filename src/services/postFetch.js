@@ -1,9 +1,6 @@
 import { fetchService } from "./fetchService";
-import { TEXTPOSTS, VIDEOPOSTS, IMAGEPOST, TEXTPOSTSGET, VIDEOPOSTSGET, IMAGEPOSTSGET } from "../shared/constants";
-
+import { POSTS, TEXTPOSTS, VIDEOPOSTS, IMAGEPOST, TEXTPOSTSGET, VIDEOPOSTSGET, IMAGEPOSTSGET, POSTDELETE } from "../shared/constants";
 import { TextPost, VideoPost, ImagePost } from '../entities/Post';
-import { POSTS } from '../shared/constants';
-
 
 export const getAllPosts = () => {
     return fetchService.get(POSTS)
@@ -85,4 +82,8 @@ export const postVideo = content => {
 
 export const postImage = content => {
     return fetchService.post(IMAGEPOST, content)
+}
+
+export const deletePost = id => {
+    return fetchService.delete(POSTDELETE, id)
 }

@@ -7,6 +7,7 @@ export const ImagePostBody = (props) => {
             <div class="col s12 ">
                 <div class="card">
                     <div class="card-image">
+                    <span className="deleteImagePostBtn">X</span>
                         <img src={props.post.imageUrl} alt=''/>
                     </div>
                 </div>

@@ -4,10 +4,11 @@ import { VideoPostBody } from './postBody/VideoPostBody';
 import { TextPostBody } from './postBody/TextPostBody';
 import { CommentList } from './CommentList';
 import { getComments } from '../../services/commentFetch';
-import { getVideoPost, getImagePost, getTextPost } from '../../services/postFetch';
+import { getVideoPost, getImagePost, getTextPost, deletePost } from '../../services/postFetch';
 import { CommentForm } from './CommentForm';
 import { Loading } from './Loading';
 import { postComment } from '../../services/commentFetch';
+
 
 export class PostContent extends Component {
     constructor(props) {
@@ -58,6 +59,10 @@ export class PostContent extends Component {
             })
     }
 
+    deletePostOnClick = () => {
+        deletePost()
+    }
+ 
     commentInputHandler = event => {
         this.setState({ commentInput: event.target.value })
     }
@@ -100,6 +105,7 @@ export class PostContent extends Component {
                 {postType === 'text' && <TextPostBody post={post} />}
                 {postType === 'image' && <ImagePostBody post={post} />}
                 {postType === 'video' && <VideoPostBody post={post} />}
+                
                 <CommentForm sendComment={this.sendComment} />
                 <CommentList comments={comments} />
             </div>

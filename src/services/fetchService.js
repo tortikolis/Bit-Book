@@ -55,8 +55,8 @@ export const fetchService = {
             .catch(error => console.error('Error:', error))
     },
 
-    delete(url, item) {
-        return fetch(url + '/' + item, {
+    delete(url, id) {
+        return fetch(url + '/' + id, {
             method: 'delete',
             headers: {
                 'Content-Type': 'application/json',
