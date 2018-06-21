@@ -1,3 +1,4 @@
+const sessionId = localStorage.getItem("sessionId")
 
 export const fetchService = {
     get(url) {
@@ -5,7 +6,7 @@ export const fetchService = {
             headers: {
                 'Content-Type': 'application/json',
                 'Key': 'bitbookdev',
-                'SessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
+                'SessionId': sessionId || '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
             }
         })
             .then((response) => response.json())
@@ -18,13 +19,13 @@ export const fetchService = {
             headers: {
                 'Content-Type': 'application/json',
                 'Key': 'bitbookdev',
-                'SessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
+                'SessionId': sessionId || '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
 
             },
             body: JSON.stringify(content)
         })
             .then((response) => response.json())
-            .catch(error => console.error('Error:', error))
+            .catch((error) => console.error('error', error));
     },
 
     upload(url, content) {
@@ -32,7 +33,7 @@ export const fetchService = {
             method: 'POST',
             headers: {
                 'Key': 'bitbookdev',
-                'SessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
+                'SessionId': sessionId || '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
                 
             },
             body: content
@@ -47,7 +48,7 @@ export const fetchService = {
             headers: {
                 'Content-Type': 'application/json',
                 'Key': 'bitbookdev',
-                'SessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
+                'SessionId': sessionId || '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
             },
             body: JSON.stringify(formData)
         })
@@ -61,7 +62,7 @@ export const fetchService = {
             headers: {
                 'Content-Type': 'application/json',
                 'Key': 'bitbookdev',
-                'SessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
+                'SessionId': sessionId || '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE'
             }
         })
             .then(response => response.json())
