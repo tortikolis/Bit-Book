@@ -1,9 +1,7 @@
 import { fetchService } from "./fetchService";
-import { TEXTPOSTS, VIDEOPOSTS, IMAGEPOST, TEXTPOSTSGET, VIDEOPOSTSGET, IMAGEPOSTSGET, REGISTER, LOGIN } from "../shared/constants";
+import { POSTS, TEXTPOSTS, VIDEOPOSTS, IMAGEPOST, TEXTPOSTSGET, VIDEOPOSTSGET, IMAGEPOSTSGET, POSTDELETE, REGISTER, LOGIN } from "../shared/constants";
 
 import { TextPost, VideoPost, ImagePost } from '../entities/Post';
-import { POSTS } from '../shared/constants';
-
 
 export const getAllPosts = () => {
     return fetchService.get(POSTS)
@@ -12,7 +10,7 @@ export const getAllPosts = () => {
                 if (post.videoUrl) {
                     return post.videoUrl.includes('youtube')
                 }
-                return true;
+                return response;
             })
         })
         .then((response) => {
@@ -69,7 +67,6 @@ export const getImagePost = (id) => {
 
 export const getTextPost = (id) => {
     return fetchService.get(TEXTPOSTSGET + id)
-
         .then((response) => {
             const { text, id, dateCreated, userId, userDisplayName, type, commentsNum } = response;
             return new TextPost(text, id, dateCreated, userId, userDisplayName, type, commentsNum);
@@ -77,6 +74,7 @@ export const getTextPost = (id) => {
 }
 export const postText = content => {
     return fetchService.post(TEXTPOSTS, content)
+    
 }
 
 export const postVideo = content => {
@@ -87,8 +85,16 @@ export const postImage = content => {
     return fetchService.post(IMAGEPOST, content)
 }
 
+export const deletePost = id => {
+    return fetchService.delete(POSTDELETE, id)
+}
+
 export const postRegister = content => {
     return fetchService.post(REGISTER, content)
+    .then((response) => {
+        console.log(response)
+        return response
+    })
 }
 
 export const postLogin = content => {
