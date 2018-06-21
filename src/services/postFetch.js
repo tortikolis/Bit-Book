@@ -6,7 +6,25 @@ import { POSTS } from '../shared/constants';
 
 
 export const getAllPosts = () => {
-    return fetchService.get(POSTS)
+    return fetchService.get(`${POSTS}?$top=${10}`)
+        .then((response) => {
+            return response.map((post) => {
+                const { videoUrl, imageUrl, text, id, dateCreated, userId, userDisplayName, type, commentsNum } = post;
+                if (type === "text") {
+                    return new TextPost(text, id, dateCreated, userId, userDisplayName, type, commentsNum);
+                }
+                if (type === "image") {
+                    return new ImagePost(imageUrl, id, dateCreated, userId, userDisplayName, type, commentsNum);
+                }
+                if (type === "video") {
+                    return new VideoPost(videoUrl, id, dateCreated, userId, userDisplayName, type, commentsNum);
+                }
+            })
+        })
+}
+
+export const getLastTenPosts = (top, skip) => {
+    return fetchService.get(`${POSTS}?$orderby=DateCreated desc&$top=${top}&$skip=${skip}`)
         .then((response) => {
             return response.map((post) => {
                 const { videoUrl, imageUrl, text, id, dateCreated, userId, userDisplayName, type, commentsNum } = post;

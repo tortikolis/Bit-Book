@@ -48,6 +48,40 @@ body {
   right: 0;
   background: rgba(0,0,0,0.5);
   z-index: 3333333;
+  height: 1000%;
+}
+
+.modal-exit {
+  float: right;
+  font-size: 20px;
+  position: relative;
+  top: -11px;
+  left: -7px;
+  cursor: pointer;
+}
+
+.modal-exit:hover {
+  color: #888;
+}
+
+.load-more {
+  padding: 15px;
+  border: 1px solid #00acc1;
+  width: 100%;
+  text-align: center;
+  color: #000;
+  -webkit-box-shadow: 0 0 18px #00acc1;
+  box-shadow: 0 0 8px #00acc1;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+}
+
+.load-more:hover {
+  border: 1px solid #4abcca;
+  color: #4abcca;
+  -webkit-box-shadow: 0 0 13px #4abcca;
+  box-shadow: 0 0 13px #4abcca;
 }
 
 #filter-select {

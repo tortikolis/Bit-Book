@@ -130,6 +130,7 @@ export class Modals extends Component {
                 <div className="modal-holder" onClick={this.onCloseModal}>
                     <div className="modal open" id="show-modal">
                         <div className="modal-content">
+                        <span className="modal-exit" onClick={this.props.closeModal}> X </span>
                             {buttonType === 'text' && this.renderTextForm()}
                             {buttonType === 'image' && this.renderImageForm()}
                             {buttonType === 'video' && this.renderVideoForm()}
