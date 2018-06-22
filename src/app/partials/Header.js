@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { logOut }  from '../../services/authService'
 
-export class Header extends Component {
+
+class Header extends Component {
+
+    onLogout = (event) => {
+        event.preventDefault()
+        logOut();
+        this.props.history.push("/")
+    } 
 
     render() {
         return (
@@ -15,6 +23,7 @@ export class Header extends Component {
                                 <li><Link to="/">Feed</Link></li>
                                 <li><Link to='/people'>People</Link></li>
                                 <li><Link to="/profile">Profile</Link></li>
+                                <li><a href='' onClick={this.onLogout}><i className="material-icons" >power_settings_new</i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -23,8 +32,10 @@ export class Header extends Component {
                     <li><Link to="/">Feed</Link></li>
                     <li><Link to='/people'>People</Link></li>
                     <li><Link to="/profile">Profile</Link></li>
+                    <li><a href='' onClick={this.onLogout}><i className="material-icons" >power_settings_new</i>Logout</a></li>
                 </ul>
             </div>
         )
     }
 }
+export default withRouter(Header)
