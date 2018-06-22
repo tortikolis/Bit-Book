@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import M from 'materialize-css';
 
 export class Register extends Component {
     constructor(props) {
