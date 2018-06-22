@@ -144,6 +144,11 @@ body {
   overflow-y: initial;
 }
 
+#updateProfileWraper{
+  position: relative;
+  top: -45px;
+}
+
 #updateProfileWraper,#updateProfileFooter {
   background-color: #fff;
 }

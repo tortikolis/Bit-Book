@@ -16,6 +16,21 @@ const getHeaders = () => {
     return headers;
 }
 
+const getUploadHeaders = () => {
+    const sessionId = localStorage.getItem("sessionId")
+
+    const headers = {
+        'Key': 'bitbookdev',
+        
+    };
+    
+    if (sessionId) {
+        headers["sessionId"] = sessionId;
+    }
+
+    return headers;
+}
+
 export const fetchService = {
     get(url) {
         return fetch(url, {
@@ -38,7 +53,7 @@ export const fetchService = {
     upload(url, content) {
         return fetch(url, {
             method: 'POST',
-            headers: getHeaders(),
+            headers: getUploadHeaders(),
             body: content
         })
             .then((response) => response.json())
