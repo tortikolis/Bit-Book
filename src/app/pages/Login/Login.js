@@ -35,9 +35,9 @@ class Login extends Component {
 
     sendLoginForm = (data) => {
         this.props.sendLoginData(data)
-            .then(({error}) => {
+            .then(({ error }) => {
                 if (error) {
-                    return this.setState({errorMsg: error.message})
+                    return this.setState({ errorMsg: error.message })
                 }
 
                 this.resetLoginForm();

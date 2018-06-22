@@ -34,7 +34,7 @@ export class Register extends Component {
         this.sendRegistrationForm(content);
     }
 
-    resetRegisterForm = () =>{
+    resetRegisterForm = () => {
         this.setState({
             registerUsername: "",
             registerPassword: "",
@@ -46,10 +46,10 @@ export class Register extends Component {
 
     sendRegistrationForm = (data) => {
         this.props.sendRegisterData(data)
-            .then(({error}) => {
+            .then(({ error }) => {
 
                 if (error) {
-                    return this.setState({errorMsg: error.message})
+                    return this.setState({ errorMsg: error.message })
                 }
 
                 this.resetRegisterForm();

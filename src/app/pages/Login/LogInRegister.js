@@ -3,7 +3,7 @@ import M from 'materialize-css'
 
 import Login from './Login'
 import { Register } from './Register'
-import { postRegister, postLogin} from '../../../services/authService'
+import { postRegister, postLogin } from '../../../services/authService'
 
 export class LoginRegister extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ export class LoginRegister extends Component {
     }
 
     sendRegisterData = (data) => {
-        return postRegister(data)      
+        return postRegister(data)
     }
 
 
@@ -27,13 +27,13 @@ export class LoginRegister extends Component {
 
     onSuccessfulRegistration = () => {
         this.tabs.select('test-swipe-1');
-        this.setState({succsessMsg: "Your registration was successfull!"})
+        this.setState({ succsessMsg: "Your registration was successfull!" })
     }
 
 
     render() {
-        
-       
+
+
         return (
             <div className="container" id='login'>
                 <div className='row'>
@@ -53,7 +53,7 @@ export class LoginRegister extends Component {
                             <Login sendLoginData={postLogin} />
                         </div>
                         <div id="test-swipe-2" className="col s12 ">
-                            <Register  sendRegisterData={this.sendRegisterData} loginTab={this.loginTab} activeTab={this.activeTab} onRegister={this.onSuccessfulRegistration}/>
+                            <Register sendRegisterData={this.sendRegisterData} loginTab={this.loginTab} activeTab={this.activeTab} onRegister={this.onSuccessfulRegistration} />
                         </div>
                     </div>
                 </div>
