@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import M from 'materialize-css'
+import M from 'materialize-css';
 
 import Login from './Login'
 import { Register } from './Register'

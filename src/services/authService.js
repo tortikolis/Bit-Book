@@ -2,8 +2,6 @@ import { fetchService } from "./fetchService";
 import { REGISTER, LOGIN } from "../shared/constants";
 
 
-
- 
 export const postRegister = content => {
     return fetchService.post(REGISTER, content)
 }
@@ -20,8 +18,7 @@ export const postLogin = content => {
         })
 }
 
-
- export const logOut = () => {
+export const logOut = () => {
     localStorage.removeItem('sessionId');
 }
 

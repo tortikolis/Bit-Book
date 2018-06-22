@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modals } from './Modals';
 import { Buttons } from './Buttons';
 import { FeedList } from './FeedList';
-import { getAllPosts, getLastTenPosts } from '../../services/postFetch';
+import { getAllPosts } from '../../services/postFetch';
 import { FilterPost } from './FilterPost';
 
 
@@ -29,19 +29,6 @@ export class Feed extends Component {
             })
     }
 
-
-    // getPosts = () => {
-    //     getLastTenPosts(this.state.top, this.state.skip)
-    //         .then((postList) => {
-    //             console.log(this.state.skip);
-
-    //             this.setState({
-    //                 posts: postList,
-    //                 skip: this.state.skip + 10,
-    //                 top: this.state.top + 10
-    //             })
-    //         })
-    // }
 
     resetButtonType = () => {
         this.setState({ buttonType: null })
@@ -71,11 +58,6 @@ export class Feed extends Component {
                     <FilterPost selectedPost={this.selectedPost} />
                     <Modals buttonType={this.state.buttonType} closeModal={this.resetButtonType} changeState={this.getPosts} />
                     <Buttons activeBtn={this.clickedBtn} />
-                    {/* <div className="row">
-                        <div className="col s8">
-                                    <span className="load-more" onClick={this.getPosts}>Load more posts</span>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         )
