@@ -14,68 +14,74 @@ export class Modal extends Component {
         }
     }
 
-    
+
     updateNameValue = event => {
-        this.setState({ fullNameValue: event.target.value})
+        this.setState({ fullNameValue: event.target.value })
         console.log(this.state.fullNameValue);
     }
-    
+
     updateDescriptionValue = event => {
-        this.setState({ descriptionValue: event.target.value})
+        this.setState({ descriptionValue: event.target.value })
     }
-    
+
     updateImageUrlValue = event => {
-        this.setState({ imageUrlValue: event.target.value})
-        console.log(this.state.imageUrlValue);
-        
+        this.setState({ imageUrlValue: event.target.value })
     }
-    
+
     fileChangedHandler = event => {
-        this.setState({selectedImage: event.target.files[0]})
+        this.setState({ selectedImage: event.target.files[0] })
     }
-    
+
     uploadHandler = () => {
         uploadUserImage(this.state.selectedImage)
-        .then( image => {
-            this.setState({ImageUrlValue: image})
-            this.setState({imageIsUploaded:true})} // kada postane true input dobija klasu none pa nestaje
-        )
+            .then(image => {
+                    this.setState({ imageUrlValue: image, imageIsUploaded: true })
+            }
+            )
     }
-    
+
     fetchProfile = () => {
-        const {fullNameValue, descriptionValue, ImageUrlValue} = this.state;
-        uploadUser(fullNameValue, descriptionValue, ImageUrlValue)
-        .then(user => { 
-            this.props.getUser();
-            this.setState({imageIsUploaded:false})
-        });
+        const { fullNameValue, descriptionValue, imageUrlValue } = this.state;
+        uploadUser(fullNameValue, descriptionValue, imageUrlValue)
+            .then(user => {
+                this.props.getUser();
+                this.setState({ imageIsUploaded: true })
+            });
     }
-    
+
     updateProfile = () => {
         this.fetchProfile();
-        this.uploadHandler();
+        this.state.selectedImage && this.uploadHandler();
         this.props.onCloseModal();
-        this.setState({imageIsUploaded: true})
+        this.setState({ imageIsUploaded: false, localImageIsUploaded: false })
+    }
+
+    closeModal = () => {
+        this.props.onCloseModal();
+        this.setState({ imageIsUploaded: false })
     }
 
     updateState = () => {
-        this.setState({fullNameValue: this.props.user.name})
-        this.setState({descriptionValue: this.props.user.aboutShort})
-        this.setState({imageUrlValue: this.props.user.avatarUrl})
+        this.setState({
+            fullNameValue: this.props.user.name,
+            descriptionValue: this.props.user.aboutShort,
+            imageUrlValue: this.props.user.avatarUrl
+        })
     }
+
 
     componentWillReceiveProps() {
         this.updateState();
     }
-    
-    
+
+
     render() {
         if (!this.props.isModalActive) {
             return null
         }
-        
+
         return (
-            
+
             <Fragment>
                 <div className="modal-holder" >
                     <div className="modal open" id="show-modal">
@@ -87,9 +93,9 @@ export class Modal extends Component {
                                         <div className="row">
                                             <div className="col s4">
                                                 <div className="card-image" id="updateProfileImg">
-                                                    <img src={this.props.user.avatarUrl} alt="profile img"/>
-                                                     <input type="file" onChange={this.fileChangedHandler} id="uploadImageInput"/>
-                                                    <a className={`waves-effect waves-light btn ${this.state.selectedImage? "": "disabled"}`} id="uploadBtn" onClick={this.uploadHandler}>Upload</a>
+                                                    <img src={this.props.user.avatarUrl} alt="profile img" />
+                                                    <input type="file" onChange={this.fileChangedHandler} id="uploadImageInput" />
+                                                    <a className={`waves-effect waves-light btn ${this.state.selectedImage ? "" : "disabled"}`} id="uploadBtn" onClick={this.uploadHandler}>Upload</a>
                                                 </div>
                                             </div>
                                             <div className="col s8">
@@ -103,7 +109,7 @@ export class Modal extends Component {
                                         </div>
                                         <div className="row">
                                             <div className="col s12">
-                                                <input value={this.state.imageUrlValue} id="imageUrl" type="text" className={`${this.state.imageIsUploaded? "none" : "block"}`} onChange={this.updateImageUrlValue} />
+                                                <input value={this.state.imageUrlValue} id="imageUrl" type="text" className={`${this.state.imageIsUploaded ? "none" : "block"}`} onChange={this.updateImageUrlValue} />
                                                 <input value={this.state.descriptionValue} id="description" type="text" className="validate" onChange={this.updateDescriptionValue} />
                                             </div>
                                         </div>
@@ -111,7 +117,7 @@ export class Modal extends Component {
                                 </div>
                             </div>
                             <div className="modal-footer" id="updateProfileFooter">
-                                <Link to="/profile" className="modal-close waves-effect waves red btn close-btn" onClick={this.props.onCloseModal}>Close</Link>
+                                <Link to="/profile" className="modal-close waves-effect waves red btn close-btn" onClick={this.closeModal}>Close</Link>
                                 <Link to="/profile" className="modal-close waves-effect waves-green btn" onClick={this.updateProfile}>Update</Link>
                             </div>
                         </div>

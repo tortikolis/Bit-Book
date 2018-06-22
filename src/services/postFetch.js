@@ -6,7 +6,6 @@ import { TextPost, VideoPost, ImagePost } from '../entities/Post';
 export const getAllPosts = () => {
     return fetchService.get(POSTS)
         .then((response) => {
-            console.log(response)
             return response.filter(post => {
                 if (post.videoUrl) {
                     return post.videoUrl.includes('youtube')

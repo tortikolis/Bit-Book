@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom";
-import { logOut }  from '../../services/authService'
+import { logOut }  from '../../services/authService';
+import M from 'materialize-css';
 
 
 class Header extends Component {
+    constructor(){
+        super();
+        this.hamburgerBtn = React.createRef()
+    }
+    
+    componentDidMount() {
+        M.Sidenav.init(this.hamburgerBtn.current);
+    }
 
     onLogout = (event) => {
         event.preventDefault()
@@ -11,14 +20,15 @@ class Header extends Component {
         this.props.history.push("/")
     } 
 
+
     render() {
         return (
             <div>
-                <nav>
+                <nav >
                     <div className="nav-wrapper #00acc1 cyan darken-1">
                         <div className="container">
                             <a href="/" className="brand-logo">BitBook<i className="material-icons">group</i></a>
-                            <a href="/" data-target="mobile-demo" className="sidenav-trigger right"><i className="material-icons">list</i></a>
+                            <a href="/" data-target="mobile-demo" className="sidenav-trigger right"  ><i className="material-icons">list</i></a>
                             <ul className="right hide-on-med-and-down">
                                 <li><Link to="/">Feed</Link></li>
                                 <li><Link to='/people'>People</Link></li>
@@ -28,7 +38,7 @@ class Header extends Component {
                         </div>
                     </div>
                 </nav>
-                <ul className="sidenav" id="mobile-demo">
+                <ul className="sidenav" id="mobile-demo" ref={this.hamburgerBtn}>
                     <li><Link to="/">Feed</Link></li>
                     <li><Link to='/people'>People</Link></li>
                     <li><Link to="/profile">Profile</Link></li>
