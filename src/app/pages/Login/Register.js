@@ -34,19 +34,19 @@ export class Register extends Component {
         this.sendRegistrationForm(content);
     }
 
-    resetRegisterForm = () =>{
+    resetRegisterForm = () => {
         this.setState({
             registerUsername: "",
             registerPassword: "",
             registerName: "",
-            registerEmail: ""
+            registerEmail: "",
+            errorMsg: ""
         })
     }
 
     sendRegistrationForm = (data) => {
         this.props.sendRegisterData(data)
             .then((response) => {
-                console.log(response)
                 if (response.error) {
                     return this.setState({errorMsg: response.error.message})
                 }
