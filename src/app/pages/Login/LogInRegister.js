@@ -53,7 +53,7 @@ export class LoginRegister extends Component {
                             <Login sendLoginData={postLogin} />
                         </div>
                         <div id="test-swipe-2" className="col s12 ">
-                            <Register sendRegisterData={this.sendRegisterData} loginTab={this.loginTab} activeTab={this.activeTab} onRegister={this.onSuccessfulRegistration} />
+                            <Register  sendRegisterData={postRegister} loginTab={this.loginTab} activeTab={this.activeTab} onRegister={this.onSuccessfulRegistration}/>
                         </div>
                     </div>
                 </div>
