@@ -14,7 +14,8 @@ export const getAllPosts = () => {
             })
         })
         .then((response) => {
-            return response.map((post) => {
+            console.log(response)
+            return response.slice(0,20).map((post) => {
                 const { videoUrl, imageUrl, text, id, dateCreated, userId, userDisplayName, type, commentsNum } = post;
                 if (type === "text") {
                     return new TextPost(text, id, dateCreated, userId, userDisplayName, type, commentsNum);
