@@ -8,13 +8,12 @@ export const getAllPosts = () => {
         .then((response) => {
             return response.filter(post => {
                 if (post.videoUrl) {
-                    return post.videoUrl.includes('youtube')
+                    return post.videoUrl.includes('embed')
                 }
                 return response;
             })
         })
         .then((response) => {
-            console.log(response)
             return response.slice(0,20).map((post) => {
                 const { videoUrl, imageUrl, text, id, dateCreated, userId, userDisplayName, type, commentsNum } = post;
                 if (type === "text") {
