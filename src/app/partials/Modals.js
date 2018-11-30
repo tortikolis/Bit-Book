@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { postText, postImage, postVideo } from "../../services/postFetch";
+import { connect } from 'react-redux';
+import { setInputTextAction, setInputImageAction, setInputVideoAction, setErrorAction, emptyErrorAction } from '../../state/actions.js/modalActions';
 
-export class Modals extends Component {
+class Modals extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -17,8 +19,8 @@ export class Modals extends Component {
             <Fragment>
                 <h4>New post</h4>
                 <p>Post content</p>
-                <input type="text" className="inputText" onChange={this.inputTextHandler} />
-                <p className="error">{this.state.errorMessage}</p>
+                <input type="text" className="inputText" onChange={this.props.inputTextHandler} />
+                <p className="error">{this.props.errorMessage}</p>
             </Fragment>
 
         )
@@ -29,8 +31,8 @@ export class Modals extends Component {
             <Fragment>
                 <h4>New image post</h4>
                 <p>Post content</p>
-                <input type="text" onChange={this.inputImageHandler} />
-                <p className="error">{this.state.errorMessage}</p>
+                <input type="text" onChange={this.props.inputImageHandler} />
+                <p className="error">{this.props.errorMessage}</p>
             </Fragment>
         )
     }
@@ -40,85 +42,67 @@ export class Modals extends Component {
             <Fragment>
                 <h4>New video post</h4>
                 <p>Post content</p>
-                <input type="text" onChange={this.inputVideoHandler} />
-                <p className="error">{this.state.errorMessage}</p>
+                <input type="text" onChange={this.props.inputVideoHandler} />
+                <p className="error">{this.props.errorMessage}</p>
             </Fragment>
         )
     }
 
 
-    onCloseModal = (event) => {
+    onCloseModal = event => {
         if (event.target.classList.contains("modal-holder")) {
             this.props.closeModal();
         }
     }
 
-    inputTextHandler = event => {
-        event.preventDefault();
-        this.setState({ inputTextValue: event.target.value });
-    }
-
-    inputImageHandler = event => {
-        event.preventDefault();
-        this.setState({ inputImageValue: event.target.value });
-    }
-
-    inputVideoHandler = event => {
-        event.preventDefault();
-        this.setState({ inputVideoValue: event.target.value });
-    }
-
 
     validateForm = () => {
         const { buttonType } = this.props;
-        const { inputImageValue, inputTextValue, inputVideoValue } = this.state;
+        const { inputImageValue, inputVideoValue, inputTextValue } = this.props;
+
         if (buttonType === "text") {
             if (!inputTextValue) {
-                this.setState({ errorMessage: "Input invalid, please enter something" })
+                this.props.addErrorMessage("Input invalid, please enter some text");
                 return false
             } else {
-                this.emptyErrorMessage();
+                this.props.emptyErrorMessage();
                 return buttonType
             }
         }
         if (buttonType === "image") {
             if (!inputImageValue) {
-                this.setState({ errorMessage: "Input invalid, please enter something" })
+                this.props.addErrorMessage("Input invalid, please enter image");
             } else if (!inputImageValue.includes(".jpg" || ".png" || ".svg" || ".gif" || ".bmp" || ".jpeg")) {
-                this.setState({ errorMessage: "Input invalid, please enter valid img format" })
+                this.props.addErrorMessage("Input invalid, please enter valid image format")
                 return false
             } else {
-                this.emptyErrorMessage();
+                this.props.emptyErrorMessage();
                 return buttonType
             }
         }
         if (buttonType === "video") {
             if (!inputVideoValue || !inputVideoValue.includes("https://www.youtube.com/watch?v=")) {
-                this.setState({ errorMessage: "Input invalid, please enter valid youtube url" })
+                this.props.addErrorMessage("Input invalid, please enter valid youtube url")
                 return false
             } else {
-                this.emptyErrorMessage();
+                this.props.emptyErrorMessage();
                 return buttonType
             }
         }
     }
 
-    emptyErrorMessage = () => {
-        this.setState({ errorMessage: "" });
-    }
-
     createTextPost = () => {
-        postText({ text: this.state.inputTextValue })
+        postText({ text: this.props.inputTextValue })
             .then(() => this.props.changeState());
     }
 
     createImagePost = () => {
-        postImage({ imageUrl: this.state.inputImageValue })
+        postImage({ imageUrl: this.props.inputImageValue })
             .then(() => this.props.changeState());
     }
 
     createVideoPost = () => {
-        let embedUrl = this.state.inputVideoValue.replace("watch?v=", "embed/");
+        let embedUrl = this.props.inputVideoValue.replace("watch?v=", "embed/");
         postVideo({ videoUrl: embedUrl })
             .then(() => this.props.changeState());
     }
@@ -160,3 +144,25 @@ export class Modals extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        inputTextValue: state.inputTextValue,
+        inputImageValue: state.inputImageValue,
+        inputVideoValue: state.inputVideoValue,
+        errorMessage: state.errorMessage
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        inputTextHandler: event => { dispatch(setInputTextAction(event.target.value)) },
+        inputImageHandler: event => { dispatch(setInputImageAction(event.target.value)) },
+        inputVideoHandler: event => { dispatch(setInputVideoAction(event.target.value)) },
+        addErrorMessage: (err) => { dispatch(setErrorAction(err)) },
+        emptyErrorMessage: () => { dispatch(emptyErrorAction()) },
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modals);

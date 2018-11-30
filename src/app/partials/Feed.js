@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Modals } from './Modals';
+import Modals from './Modals';
 import { Buttons } from './Buttons';
 import { FeedList } from './FeedList';
 import { getAllPosts } from '../../services/postFetch';
 import { FilterPost } from './FilterPost';
 
 
-export class Feed extends Component {
+class Feed extends Component {
     constructor(props) {
         super(props)
 
@@ -63,3 +63,5 @@ export class Feed extends Component {
         )
     }
 }
+
+export default Feed;

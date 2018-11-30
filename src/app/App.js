@@ -7,7 +7,7 @@ import './App.css';
 
 import Header from './partials/Header';
 import { Footer } from './partials/Footer';
-import { Feed } from './partials/Feed';
+import Feed from './partials/Feed';
 import { PostContent } from './partials/PostContent';
 import { Profile } from './pages/userProfile/Profile';
 import { PeoplePage } from './pages/People/PeoplePage';
