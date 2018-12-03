@@ -32,3 +32,10 @@ export const emptyErrorAction = () => {
     payload: "" 
   }
 };
+
+export const clearPostsAction = () => {
+  return {
+    type: 'CLEAR_POSTS_DATA',
+    payload: ""
+  }
+}

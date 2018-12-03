@@ -2,66 +2,47 @@ import React, { Component } from 'react';
 import Modals from './Modals';
 import { Buttons } from './Buttons';
 import { FeedList } from './FeedList';
-import { getAllPosts } from '../../services/postFetch';
+
 import { FilterPost } from './FilterPost';
+import { connect } from 'react-redux';
+import { buttonTypeAction, selectedPostAction, getPostsAction } from '../../state/actions/feedActions';
 
 
 class Feed extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            posts: [],
-            buttonType: null,
-            selectedOption: null,
-            skip: 0,
-            top: 10
-        }
-    }
-
-
-    getPosts = () => {
-        getAllPosts()
-            .then((postList) => {
-                this.setState({
-                    posts: postList
-                })
-            })
-    }
-
-
-    resetButtonType = () => {
-        this.setState({ buttonType: null })
-    }
-
-    clickedBtn = event => {
-        let targetBtn = event.target.parentElement.getAttribute("data-target");
-        this.setState({ buttonType: targetBtn });
-    }
-
-    selectedPost = event => {
-        let selectedOpt = event.target.value;
-        this.setState({ selectedOption: selectedOpt });
-    }
-
 
     componentDidMount() {
-        this.getPosts()
-    }
-
+        this.props.getPosts()
+    };
 
     render() {
         return (
             <div className="row container feed">
                 <div className="col s12">
-                    <FeedList posts={this.state.posts} selectedOption={this.state.selectedOption} />
-                    <FilterPost selectedPost={this.selectedPost} />
-                    <Modals buttonType={this.state.buttonType} closeModal={this.resetButtonType} changeState={this.getPosts} />
-                    <Buttons activeBtn={this.clickedBtn} />
+                    <FeedList posts={this.props.posts} selectedOption={this.props.selectedOption} />
+                    <FilterPost selectedPost={this.props.selectedPost} />
+                    <Modals buttonType={this.props.buttonType} closeModal={this.props.resetButtonType} changeState={this.props.getPosts} />
+                    <Buttons activeBtn={this.props.clickedBtn} />
                 </div>
             </div>
         )
     }
 }
 
-export default Feed;
+const mapStateToProps = state => {
+    return {
+        posts: state.posts,
+        buttonType: state.buttonType,
+        selectedOption: state.selectedOption
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getPosts: () => { dispatch(getPostsAction()) },
+        resetButtonType: () => { dispatch(buttonTypeAction(null)) },
+        clickedBtn: event => { dispatch(buttonTypeAction(event.target.parentElement.getAttribute("data-target"))) },
+        selectedPost: event => { dispatch(selectedPostAction( event.target.value)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);

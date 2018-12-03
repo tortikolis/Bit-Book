@@ -1,18 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { postText, postImage, postVideo } from "../../services/postFetch";
 import { connect } from 'react-redux';
-import { setInputTextAction, setInputImageAction, setInputVideoAction, setErrorAction, emptyErrorAction } from '../../state/actions.js/modalActions';
+import { setInputTextAction, setInputImageAction, setInputVideoAction, setErrorAction, emptyErrorAction, clearPostsAction } from '../../state/actions/modalActions';
 
 class Modals extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            inputTextValue: "",
-            inputImageValue: "",
-            inputVideoValue: "",
-            errorMessage: ""
-        }
-    }
 
     renderTextForm = () => {
         return (
@@ -59,7 +50,6 @@ class Modals extends Component {
     validateForm = () => {
         const { buttonType } = this.props;
         const { inputImageValue, inputVideoValue, inputTextValue } = this.props;
-
         if (buttonType === "text") {
             if (!inputTextValue) {
                 this.props.addErrorMessage("Input invalid, please enter some text");
@@ -94,17 +84,20 @@ class Modals extends Component {
     createTextPost = () => {
         postText({ text: this.props.inputTextValue })
             .then(() => this.props.changeState());
+        return true;
     }
 
     createImagePost = () => {
         postImage({ imageUrl: this.props.inputImageValue })
             .then(() => this.props.changeState());
+        return true;
     }
 
     createVideoPost = () => {
         let embedUrl = this.props.inputVideoValue.replace("watch?v=", "embed/");
         postVideo({ videoUrl: embedUrl })
             .then(() => this.props.changeState());
+        return true;
     }
 
     createPost = event => {
@@ -115,6 +108,7 @@ class Modals extends Component {
             postType === "image" && this.createImagePost();
             postType === "video" && this.createVideoPost();
             this.props.closeModal();
+            this.props.clearPostData();
         }
     }
 
@@ -134,7 +128,6 @@ class Modals extends Component {
                             {buttonType === 'image' && this.renderImageForm()}
                             {buttonType === 'video' && this.renderVideoForm()}
                             <div className="modal-footer">
-                                {/* mozda potrebno promeniti href */}
                                 <a href="#!" className="modal-close waves-effect waves-green btn btn" onClick={this.createPost}>POST</a>
                             </div>
                         </div>
@@ -159,7 +152,8 @@ const mapDispatchToProps = dispatch => {
         inputTextHandler: event => { dispatch(setInputTextAction(event.target.value)) },
         inputImageHandler: event => { dispatch(setInputImageAction(event.target.value)) },
         inputVideoHandler: event => { dispatch(setInputVideoAction(event.target.value)) },
-        addErrorMessage: (err) => { dispatch(setErrorAction(err)) },
+        clearPostData: () => { dispatch(clearPostsAction()) },
+        addErrorMessage: err => { dispatch(setErrorAction(err)) },
         emptyErrorMessage: () => { dispatch(emptyErrorAction()) },
     }
 }
