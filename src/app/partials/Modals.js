@@ -140,10 +140,10 @@ class Modals extends Component {
 
 const mapStateToProps = state => {
     return {
-        inputTextValue: state.inputTextValue,
-        inputImageValue: state.inputImageValue,
-        inputVideoValue: state.inputVideoValue,
-        errorMessage: state.errorMessage
+        inputTextValue: state.modal.inputTextValue,
+        inputImageValue: state.modal.inputImageValue,
+        inputVideoValue: state.modal.inputVideoValue,
+        errorMessage: state.modal.errorMessage
     }
 }
 

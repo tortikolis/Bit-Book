@@ -1,35 +1,20 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
+import { connect } from 'react-redux';
+import { setUsenameAndPasswordAction, resetLoginFormAction, setErrorMsgAction } from '../../../state/actions/loginActions';
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loginName: "",
-            loginPassword: "",
-            errorMsg: ""
-        }
-    }
 
     loginHandler = (event) => {
         event.preventDefault();
-        const { loginName, loginPassword } = this.state;
+        const { loginName, loginPassword } = this.props;
         const content = {
             username: loginName,
             password: loginPassword
         }
-
         this.sendLoginForm(content)
     }
 
-    resetLoginForm = () => {
-        this.setState({
-            loginName: "",
-            loginPassword: "",
-            errorMsg: ""
-        })
-    }
 
     goToHomepage = () => this.props.history.push("/");
 
@@ -37,50 +22,53 @@ class Login extends Component {
         this.props.sendLoginData(data)
             .then(({ error }) => {
                 if (error) {
-                    return this.setState({ errorMsg: error.message })
+                    return this.props.displayError(error.message);
                 }
-
-                this.resetLoginForm();
+                this.props.resetLoginForm();
                 this.goToHomepage();
             })
     }
 
-    onChangeHandler = (event) => {
-        const elementId = event.target.id;
-        const elementValue = event.target.value;
-        this.setState({
-            [elementId]: elementValue
-        })
-    }
-
     render() {
-
         return (
-
             <div className="row">
                 <form className="col s12">
                     <div className="row">
                         <div className="input-field col s12">
-                            <input id="loginName" type="text" className="validate" autoComplete="ussername" required onChange={this.onChangeHandler} />
+                            <input id="loginName" type="text" className="validate" autoComplete="ussername" required onChange={this.props.onChangeHandler} />
                             <label htmlFor="loginName">Username</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="input-field col s12">
-                            <input id="loginPassword" type="password" className="validate" autoComplete="current-password" required onChange={this.onChangeHandler} />
+                            <input id="loginPassword" type="password" className="validate" autoComplete="current-password" required onChange={this.props.onChangeHandler} />
                             <label htmlFor="loginPassword">Pass</label>
                         </div>
                     </div>
                     <button className="btn waves-effect waves-light" type="submit" onClick={this.loginHandler} name="action">Login
                     <i className="material-icons right">vpn_key</i>
                     </button>
-                    <p className="red-text">{this.state.errorMsg} </p>
+                    <p className="red-text">{this.props.errorMsg} </p>
                 </form>
             </div>
         )
-
     }
-
 }
 
-export default withRouter(Login)
+const mapStateToProps = state => {
+    return {
+        loginName: state.login.loginName,
+        loginPassword: state.login.loginPassword,
+        errorMsg: state.login.errorMsg
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onChangeHandler: event => { dispatch(setUsenameAndPasswordAction(event.target.value, event.target.id)) },
+        resetLoginForm: () => { dispatch(resetLoginFormAction()) },
+        displayError: err => { dispatch(setErrorMsgAction(err)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))

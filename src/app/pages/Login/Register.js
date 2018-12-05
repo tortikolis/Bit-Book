@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setRegisterErrorAction, resetRegisterFormAction, setRegisterFormAction } from '../../../state/actions/registerActions';
 
-export class Register extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            registerUsername: "",
-            registerPassword: "",
-            registerName: "",
-            registerEmail: "",
-            errorMsg: ""
-        }
-    }
+class Register extends Component {
 
     registerHandler = (event) => {
         event.preventDefault();
 
-        const { registerName, registerUsername, registerPassword, registerEmail } = this.state
+        const { registerName, registerUsername, registerPassword, registerEmail } = this.props;
         const content = {
             username: registerUsername,
             password: registerPassword,
@@ -24,56 +16,24 @@ export class Register extends Component {
         }
         //check if password valid
         if (content.password.length < 6) {
-            return this.setError("Password must be at least 6 characters long")
+            return this.props.setError("Password must be at least 6 characters long")
         }
         if (!content.email.includes('@')) {
-            return this.setError("Email is not valid")
+            return this.props.setError("Email is not valid")
         }
 
         this.sendRegistrationForm(content);
-    }
-
-    resetRegisterForm = () => {
-        this.setState({
-            registerUsername: "",
-            registerPassword: "",
-            registerName: "",
-            registerEmail: "",
-            errorMsg: ""
-        })
     }
 
     sendRegistrationForm = (data) => {
         this.props.sendRegisterData(data)
             .then((response) => {
                 if (response.error) {
-                    return this.setState({errorMsg: response.error.message})
+                    return this.props.setError(response.error.message);
                 }
-
-                this.resetRegisterForm();
+                this.props.resetRegisterForm();
                 this.props.onRegister();
             })
-
-    }
-
-    invalidPassword = () => {
-        this.setState({
-            errorMsg: "Password must be at least 6 characters long"
-        })
-    }
-
-    setError = (message) => {
-        this.setState({
-            errorMsg: message
-        })
-    }
-
-    onChangeHandler = (event) => {
-        const elementId = event.target.id;
-        const elementValue = event.target.value;
-        this.setState({
-            [elementId]: elementValue
-        })
     }
 
     render() {
@@ -82,36 +42,54 @@ export class Register extends Component {
                 <form className="col s12">
                     <div className="row">
                         <div className="input-field col s12">
-                            <input id="registerName" type="text" className="validate" value={this.state.registerName} onChange={this.onChangeHandler} />
+                            <input id="registerName" type="text" className="validate" value={this.props.registerName} onChange={this.props.onChangeHandler} />
                             <label htmlFor="registerName">Name</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="input-field col s12">
-                            <input id="registerUsername" type="text" className="validate" autoComplete="reggister-username" value={this.state.registerUsername} onChange={this.onChangeHandler} />
+                            <input id="registerUsername" type="text" className="validate" autoComplete="reggister-username" value={this.props.registerUsername} onChange={this.props.onChangeHandler} />
                             <label htmlFor="registerUsername">Username</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="input-field col s12">
-                            <input id="registerPassword" type="password" className="validate" autoComplete="register-password" value={this.state.registerPassword} onChange={this.onChangeHandler} />
+                            <input id="registerPassword" type="password" className="validate" autoComplete="register-password" value={this.props.registerPassword} onChange={this.props.onChangeHandler} />
                             <label htmlFor="registerPassword">Pass</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="input-field col s12">
-                            <input id="registerEmail" type="email" className="validate" value={this.state.registerEmail} onChange={this.onChangeHandler} />
+                            <input id="registerEmail" type="email" className="validate" value={this.props.registerEmail} onChange={this.props.onChangeHandler} />
                             <label htmlFor="registerEmail">Email</label>
                         </div>
                     </div>
                     <button className="btn waves-effect waves-light" type="submit" name="action" onClick={this.registerHandler}>Register
                 <i className="material-icons right">account_box</i>
                     </button>
-                    <p className="red-text">{this.state.errorMsg}</p>
+                    <p className="red-text">{this.props.errorMsg}</p>
                 </form>
             </div>
         )
-
     }
-
 }
+
+const mapStateToProps = state => {
+    return {
+        registerUsername: state.register.registerUsername,
+        registerPassword: state.register.registerPassword,
+        registerName: state.register.registerName,
+        registerEmail: state.register.registerEmail,
+        errorMsg: state.register.errorMsg 
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setError: err => { dispatch(setRegisterErrorAction(err)) },
+        resetRegisterForm: () => { dispatch(resetRegisterFormAction()) },
+        onChangeHandler: event => { dispatch(setRegisterFormAction(event.target.id, event.target.value)) }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Register);

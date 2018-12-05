@@ -27,12 +27,12 @@ class Feed extends Component {
         )
     }
 }
-
+console.log()
 const mapStateToProps = state => {
     return {
-        posts: state.posts,
-        buttonType: state.buttonType,
-        selectedOption: state.selectedOption
+        posts: state.feed.posts,
+        buttonType: state.feed.buttonType,
+        selectedOption: state.feed.selectedOption
     }
 }
 
