@@ -10,23 +10,27 @@ export class SingleComment extends Component {
     };
   }
 
-  fetchUserData() {
-    fetchUser(this.props.comment.authorId).then(user => {
-      this.setState({ user: user });
-    });
-  }
-
   componentDidMount() {
     this.fetchUserData();
   }
 
+  fetchUserData() {
+    const { authorId } = this.props.comment;
+    fetchUser(authorId).then(user => {
+      this.setState({ user: user });
+    });
+  }
+
   render() {
+    const { authorName, body } = this.props.comment;
+    const { avatarUrl } = this.state.user;
+
     return (
-      <div className="collection-item avatar comment">
-        <img src={this.state.user.avatarUrl} alt="" className="circle" />
-        <span className="title username">{this.props.comment.authorName}</span>
-        <p>{this.props.comment.body}</p>
-      </div>
+      <li className="collection-item avatar comment">
+        <img src={avatarUrl} alt="" className="circle" />
+        <span className="title username">{authorName}</span>
+        <p>{body}</p>
+      </li>
     );
   }
 }

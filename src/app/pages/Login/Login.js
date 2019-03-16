@@ -1,86 +1,106 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            loginName: "",
-            loginPassword: "",
-            errorMsg: ""
-        }
-    }
+    this.state = {
+      loginName: "",
+      loginPassword: "",
+      errorMsg: ""
+    };
+  }
 
-    loginHandler = (event) => {
-        event.preventDefault();
-        const { loginName, loginPassword } = this.state;
-        const content = {
-            username: loginName,
-            password: loginPassword
-        }
+  loginHandler = event => {
+    const { loginName, loginPassword } = this.state;
+    const content = {
+      username: loginName,
+      password: loginPassword
+    };
 
-        this.sendLoginForm(content)
-    }
+    event.preventDefault();
+    this.sendLoginForm(content);
+  };
 
-    resetLoginForm = () => {
-        this.setState({
-            loginName: "",
-            loginPassword: "",
-            errorMsg: ""
-        })
-    }
+  resetLoginForm = () => {
+    this.setState({
+      loginName: "",
+      loginPassword: "",
+      errorMsg: ""
+    });
+  };
 
-    goToHomepage = () => this.props.history.push("/");
+  goToHomepage = () => this.props.history.push("/");
 
-    sendLoginForm = (data) => {
-        this.props.sendLoginData(data)
-            .then(({ error }) => {
-                if (error) {
-                    return this.setState({ errorMsg: error.message })
-                }
+  sendLoginForm = data => {
+    const { sendLoginData } = this.props;
 
-                this.resetLoginForm();
-                this.goToHomepage();
-            })
-    }
+    sendLoginData(data).then(({ error }) => {
+      if (error) {
+        return this.setState({ errorMsg: error.message });
+      }
 
-    onChangeHandler = (event) => {
-        const elementId = event.target.id;
-        const elementValue = event.target.value;
-        this.setState({
-            [elementId]: elementValue
-        })
-    }
+      this.resetLoginForm();
+      this.goToHomepage();
+    });
+  };
 
-    render() {
+  onChangeHandler = event => {
+    const elementId = event.target.id;
+    const elementValue = event.target.value;
 
-        return (
+    this.setState({
+      [elementId]: elementValue
+    });
+  };
 
-            <div className="row">
-                <form className="col s12">
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <input id="loginName" type="text" className="validate" autoComplete="ussername" required onChange={this.onChangeHandler} />
-                            <label htmlFor="loginName">Username</label>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <input id="loginPassword" type="password" className="validate" autoComplete="current-password" required onChange={this.onChangeHandler} />
-                            <label htmlFor="loginPassword">Pass</label>
-                        </div>
-                    </div>
-                    <button className="btn waves-effect waves-light" type="submit" onClick={this.loginHandler} name="action">Login
-                    <i className="material-icons right">vpn_key</i>
-                    </button>
-                    <p className="red-text">{this.state.errorMsg} </p>
-                </form>
+  render() {
+    const { errorMsg } = this.state;
+
+    return (
+      <div className="row">
+        <form className="col s12">
+          <div className="row">
+            <div className="input-field col s12">
+              <input
+                id="loginName"
+                type="text"
+                className="validate"
+                autoComplete="ussername"
+                required
+                onChange={this.onChangeHandler}
+              />
+              <label htmlFor="loginName">Username</label>
             </div>
-        )
-
-    }
-
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input
+                id="loginPassword"
+                type="password"
+                className="validate"
+                autoComplete="current-password"
+                required
+                onChange={this.onChangeHandler}
+              />
+              <label htmlFor="loginPassword">Pass</label>
+            </div>
+          </div>
+          <button
+            className="btn waves-effect waves-light"
+            type="submit"
+            onClick={this.loginHandler}
+            name="action"
+          >
+            Login
+            <i className="material-icons right">vpn_key</i>
+          </button>
+          <p className="red-text">{errorMsg} </p>
+        </form>
+      </div>
+    );
+  }
 }
 
-export default withRouter(Login)
+export default withRouter(Login);

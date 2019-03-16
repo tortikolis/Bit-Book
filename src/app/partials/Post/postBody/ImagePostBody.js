@@ -1,17 +1,25 @@
-import React from 'react';
+import React from "react";
 
-export const ImagePostBody = (props) => {
+export const ImagePostBody = props => {
+  const { userId, deletePostOnClick, post, authorId } = props;
 
-    return (
-        <div className="row content">
-            <div className="col s12 ">
-                <div className="card">
-                    <div className="card-image">
-                    {props.authorId === props.userId ? <span className="deleteImagePostBtn" onClick={props.deletePostOnClick}>X</span> : <span></span>}
-                        <img src={props.post.imageUrl} alt=''/>
-                    </div>
-                </div>
-            </div>
+  const deletePostElement =
+    authorId === userId ? (
+      <span className="deleteImagePostBtn" onClick={deletePostOnClick}>
+        X
+      </span>
+    ) : null;
+
+  return (
+    <div className="row content">
+      <div className="col s12 ">
+        <div className="card">
+          <div className="card-image">
+            {deletePostElement}
+            <img src={post.imageUrl} alt="post content" />
+          </div>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};

@@ -283,7 +283,7 @@ footer .container {
 }
 
 .username {
-  color: #00acc1
+  color: #00acc1;
 }
 
 .sk-cube-grid {
@@ -403,11 +403,11 @@ footer .container {
   #filter-select .dropdown-content ul {
     height: auto !important;
   }
-  #filter-select .dropdown-content li>span {
+  #filter-select .dropdown-content li > span {
     font-size: 0px !important;
     padding: 0 !important;
   }
-  #filter-select .dropdown-content li>img {
+  #filter-select .dropdown-content li > img {
     margin-top: 20px;
   }
   #filter-select .select-wrapper .caret {
@@ -427,7 +427,7 @@ footer .container {
     left: -10px !important;
   }
   #filter-select input,
-  #filter-select .dropdown-content li>span {
+  #filter-select .dropdown-content li > span {
     font-size: 13px;
   }
 }

@@ -27,6 +27,21 @@ export class PostContent extends Component {
     };
   }
 
+  componentDidMount() {
+    const { type } = this.props.match.params;
+
+    if (type === "video") {
+      this.getVideoPostData();
+    } else if (type === "image") {
+      this.getImagePostData();
+    } else {
+      this.getTextPostData();
+    }
+
+    this.getCommentsData();
+    this.getProfileInfo();
+  }
+
   getProfileInfo = () => {
     fetchProfile().then(profileInfo => {
       this.setState({
@@ -36,7 +51,9 @@ export class PostContent extends Component {
   };
 
   getVideoPostData = () => {
-    getVideoPost(this.props.match.params.id).then(videoPost => {
+    const { id } = this.props.match.params;
+
+    getVideoPost(id).then(videoPost => {
       this.setState({
         post: videoPost
       });
@@ -44,7 +61,9 @@ export class PostContent extends Component {
   };
 
   getImagePostData = () => {
-    getImagePost(this.props.match.params.id).then(imagePost => {
+    const { id } = this.props.match.params;
+
+    getImagePost(id).then(imagePost => {
       this.setState({
         post: imagePost
       });
@@ -52,7 +71,9 @@ export class PostContent extends Component {
   };
 
   getTextPostData = () => {
-    getTextPost(this.props.match.params.id).then(textPost => {
+    const { id } = this.props.match.params;
+
+    getTextPost(id).then(textPost => {
       this.setState({
         post: textPost
       });
@@ -60,7 +81,9 @@ export class PostContent extends Component {
   };
 
   getCommentsData = () => {
-    getComments(this.props.match.params.id).then(commentList => {
+    const { id } = this.props.match.params;
+
+    getComments(id).then(commentList => {
       this.setState({
         comments: commentList
       });
@@ -77,8 +100,8 @@ export class PostContent extends Component {
   };
 
   sendComment = comment => {
-    const id = this.props.match.params.id;
-    const authorId = this.state.profile.authorId;
+    const { id } = this.props.match.params;
+    const { authorId } = this.state.profile;
 
     const content = {
       body: comment,
@@ -88,24 +111,15 @@ export class PostContent extends Component {
     postComment(content).then(() => this.getCommentsData());
   };
 
-  componentDidMount() {
-    if (this.props.match.params.type === "video") {
-      this.getVideoPostData();
-    } else if (this.props.match.params.type === "image") {
-      this.getImagePostData();
-    } else {
-      this.getTextPostData();
-    }
-    this.getCommentsData();
-    this.getProfileInfo();
-  }
-
   render() {
-    if (!this.state.post || !this.state.profile) {
+    const { comments, post, profile } = this.state;
+    const postType = post.type;
+    const postId = post.id;
+    const profileId = profile.id;
+
+    if (!post || !profile) {
       return <Loading />;
     }
-    const { comments, post } = this.state;
-    const postType = post.type;
 
     return (
       <div className="container">
@@ -113,27 +127,26 @@ export class PostContent extends Component {
           <TextPostBody
             post={post}
             deletePostOnClick={this.deletePostOnClick}
-            authorId={this.state.post.userId}
-            userId={this.state.profile.userId}
+            authorId={postId}
+            userId={profileId}
           />
         )}
         {postType === "image" && (
           <ImagePostBody
             post={post}
             deletePostOnClick={this.deletePostOnClick}
-            authorId={this.state.post.userId}
-            userId={this.state.profile.userId}
+            authorId={postId}
+            userId={profileId}
           />
         )}
         {postType === "video" && (
           <VideoPostBody
             post={post}
             deletePostOnClick={this.deletePostOnClick}
-            authorId={this.state.post.userId}
-            userId={this.state.profile.userId}
+            authorId={postId}
+            userId={profileId}
           />
         )}
-
         <CommentForm sendComment={this.sendComment} />
         <CommentList comments={comments} />
       </div>

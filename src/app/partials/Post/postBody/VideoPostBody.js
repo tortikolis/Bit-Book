@@ -1,15 +1,29 @@
-import React from 'react';
+import React from "react";
 
-export const VideoPostBody = (props) => {
+export const VideoPostBody = props => {
+  const { userId, deletePostOnClick, post, authorId } = props;
 
-    return (
-        <div className="row content">
-            <div className="col s12">
-            {props.authorId === props.userId ? <span className="deleteImagePostBtn" onClick={props.deletePostOnClick}>X</span> : <span></span>}
-                <div className="video-container">
-                    <iframe src={props.post.videoUrl} title="video-post-body" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
-                </div>
-            </div>
+  const deletePostElement =
+    authorId === userId ? (
+      <span className="deleteImagePostBtn" onClick={deletePostOnClick}>
+        X
+      </span>
+    ) : null;
+
+  return (
+    <div className="row content">
+      <div className="col s12">
+        {deletePostElement}
+        <div className="video-container">
+          <iframe
+            src={post.videoUrl}
+            title="video-post-body"
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          />
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};

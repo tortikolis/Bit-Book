@@ -18,6 +18,10 @@ export class Feed extends Component {
     };
   }
 
+  componentDidMount() {
+    this.getPosts();
+  }
+
   getPosts = () => {
     getAllPosts().then(postList => {
       this.setState({
@@ -39,10 +43,6 @@ export class Feed extends Component {
     let selectedOpt = event.target.value;
     this.setState({ selectedOption: selectedOpt });
   };
-
-  componentDidMount() {
-    this.getPosts();
-  }
 
   render() {
     return (

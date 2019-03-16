@@ -147,7 +147,7 @@ export class Modals extends Component {
   };
 
   render() {
-    const { buttonType } = this.props;
+    const { buttonType, closeModal } = this.props;
     if (!buttonType) {
       return null;
     }
@@ -156,15 +156,14 @@ export class Modals extends Component {
         <div className="modal-holder" onClick={this.onCloseModal}>
           <div className="modal open" id="show-modal">
             <div className="modal-content">
-              <span className="modal-exit" onClick={this.props.closeModal}>
+              <span className="modal-exit" onClick={closeModal}>
                 {" "}
                 X{" "}
               </span>
               {this.renderForm(buttonType)}
               <div className="modal-footer">
-                {/* mozda potrebno promeniti href */}
                 <a
-                  href="#!"
+                  href="#"
                   className="modal-close waves-effect waves-green btn btn"
                   onClick={this.createPost}
                 >

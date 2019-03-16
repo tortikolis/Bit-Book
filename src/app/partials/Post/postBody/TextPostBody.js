@@ -1,19 +1,23 @@
-import React from 'react';
+import React from "react";
 
-export const TextPostBody = (props) => {
+export const TextPostBody = props => {
+  const { userId, deletePostOnClick, post, authorId } = props;
 
-  console.log(props.authorId);
-  console.log(props.userId);
+  const deletePostElement =
+    authorId === userId ? (
+      <span className="deletePostBtn" onClick={deletePostOnClick}>
+        X
+      </span>
+    ) : null;
+
   return (
-    
     <div className="row content">
       <div className="col s12">
         <div className="card-panel white">
-        {props.authorId === props.userId ? <span className="deletePostBtn" onClick={props.deletePostOnClick}>X</span> : <span></span>}
-          <span >{props.post.text}
-          </span>
+          {deletePostElement}
+          <span>{props.post.text}</span>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
