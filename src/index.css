@@ -142,6 +142,16 @@ body {
   color: tomato;
 }
 
+.more-posts-btn {
+  margin-bottom: 50px;
+  width: 100%;
+  background-color: transparent;
+  padding: 10px;
+  border: 1px solid rgb(177, 176, 176);
+  color: rgb(177, 176, 176);
+  cursor: pointer;
+}
+
 #show-modal {
   display: block;
   opacity: 1;
@@ -403,11 +413,11 @@ footer .container {
   #filter-select .dropdown-content ul {
     height: auto !important;
   }
-  #filter-select .dropdown-content li > span {
+  #filter-select .dropdown-content li>span {
     font-size: 0px !important;
     padding: 0 !important;
   }
-  #filter-select .dropdown-content li > img {
+  #filter-select .dropdown-content li>img {
     margin-top: 20px;
   }
   #filter-select .select-wrapper .caret {
@@ -427,7 +437,7 @@ footer .container {
     left: -10px !important;
   }
   #filter-select input,
-  #filter-select .dropdown-content li > span {
+  #filter-select .dropdown-content li>span {
     font-size: 13px;
   }
 }

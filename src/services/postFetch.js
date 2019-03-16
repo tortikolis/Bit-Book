@@ -12,7 +12,7 @@ import {
 
 import { TextPost, VideoPost, ImagePost } from "../entities/Post";
 
-export const getAllPosts = () => {
+export const getAllPosts = numOfPosts => {
   return fetchService
     .get(POSTS)
     .then(response => {
@@ -24,7 +24,7 @@ export const getAllPosts = () => {
       });
     })
     .then(response => {
-      return response.slice(0, 20).map(post => {
+      return response.slice(0, numOfPosts).map(post => {
         const {
           videoUrl,
           imageUrl,

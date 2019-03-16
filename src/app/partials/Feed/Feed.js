@@ -4,6 +4,7 @@ import { Buttons } from "./NewPost/Buttons";
 import { FeedList } from "./FeedList";
 import { getAllPosts } from "../../../services/postFetch";
 import { FilterPost } from "./FilterPost";
+import { MorePosts } from "./MorePosts";
 
 export class Feed extends Component {
   constructor(props) {
@@ -14,16 +15,17 @@ export class Feed extends Component {
       buttonType: null,
       selectedOption: null,
       skip: 0,
-      top: 10
+      top: 10,
+      postAmount: 20
     };
   }
 
   componentDidMount() {
-    this.getPosts();
+    this.getPosts(this.state.postAmount);
   }
 
-  getPosts = () => {
-    getAllPosts().then(postList => {
+  getPosts = postAmount => {
+    getAllPosts(postAmount).then(postList => {
       this.setState({
         posts: postList
       });
@@ -44,17 +46,24 @@ export class Feed extends Component {
     this.setState({ selectedOption: selectedOpt });
   };
 
+  loadMorePosts = () => {
+    const postAmount = this.state.postAmount;
+    const newPostAmount = postAmount + 20;
+
+    this.setState({ postAmount: newPostAmount });
+    this.getPosts(newPostAmount);
+  };
+
   render() {
+    const { selectedOption, buttonType, posts } = this.state;
     return (
       <div className="row container feed">
         <div className="col s12">
-          <FeedList
-            posts={this.state.posts}
-            selectedOption={this.state.selectedOption}
-          />
+          <FeedList posts={posts} selectedOption={selectedOption} />
+          <MorePosts onClickHandler={this.loadMorePosts} />
           <FilterPost selectedPost={this.selectedPost} />
           <Modals
-            buttonType={this.state.buttonType}
+            buttonType={buttonType}
             closeModal={this.resetButtonType}
             changeState={this.getPosts}
           />
