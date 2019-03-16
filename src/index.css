@@ -9,25 +9,31 @@ body {
   position: relative;
   min-height: 100%;
 }
+
 #people {
   margin-top: 30px;
 }
+
 .feed {
   min-height: 100%;
   margin-bottom: -30px;
 }
-.last-update{
+
+.last-update {
   margin-top: 20px;
   border-top: 1px solid rgb(168, 236, 236);
   color: rgb(158, 238, 238);
 }
-.about{
+
+.about {
   color: grey;
 }
-.title{
+
+.title {
   font-weight: bold;
 }
-#user-item:hover{
+
+#user-item:hover {
   border: 1px solid rgb(10, 179, 179);
 }
 
@@ -39,17 +45,19 @@ body {
   font-size: 25px;
   cursor: pointer;
 }
+
 .deleteImagePostBtn {
   float: right;
-    position: relative;
-    top: 0px;
-    right: 10px;
-    color: #777;
-    font-size: 25px;
-    cursor: pointer;
+  position: relative;
+  top: 0px;
+  right: 10px;
+  color: #777;
+  font-size: 25px;
+  cursor: pointer;
 }
 
-.deletePostBtn:hover, .deleteImagePostBtn:hover {
+.deletePostBtn:hover,
+.deleteImagePostBtn:hover {
   color: red;
 }
 
@@ -68,11 +76,10 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 3333333;
   height: 100%;
 }
-
 
 .modal-exit {
   float: right;
@@ -115,7 +122,7 @@ body {
   border-top: 1px solid #888;
 }
 
-#filter-select input{
+#filter-select input {
   color: #888;
 }
 
@@ -132,7 +139,7 @@ body {
 }
 
 .error {
-  color:tomato;
+  color: tomato;
 }
 
 #show-modal {
@@ -144,12 +151,13 @@ body {
   overflow-y: initial;
 }
 
-#updateProfileWraper{
+#updateProfileWraper {
   position: relative;
   top: -45px;
 }
 
-#updateProfileWraper,#updateProfileFooter {
+#updateProfileWraper,
+#updateProfileFooter {
   background-color: #fff;
 }
 
@@ -188,7 +196,8 @@ body {
   margin-right: 15px;
 }
 
-input#description, input#imageUrl {
+input#description,
+input#imageUrl {
   width: 94%;
   margin-bottom: 40px;
 }
@@ -264,16 +273,19 @@ footer .container {
   margin-top: 40px;
   margin-left: 10px;
 }
-.btn-small{
+
+.btn-small {
   margin-top: 22px;
 }
 
-.content{
+.content {
   margin-top: 20px;
 }
-.username{
+
+.username {
   color: #00acc1
 }
+
 .sk-cube-grid {
   width: 200px;
   height: 200px;
@@ -286,107 +298,123 @@ footer .container {
   background-color: #00acc1;
   float: left;
   -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+  animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
 }
+
 .sk-cube-grid .sk-cube1 {
   -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s; }
+  animation-delay: 0.2s;
+}
+
 .sk-cube-grid .sk-cube2 {
   -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s; }
+  animation-delay: 0.3s;
+}
+
 .sk-cube-grid .sk-cube3 {
   -webkit-animation-delay: 0.4s;
-          animation-delay: 0.4s; }
+  animation-delay: 0.4s;
+}
+
 .sk-cube-grid .sk-cube4 {
   -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s; }
+  animation-delay: 0.1s;
+}
+
 .sk-cube-grid .sk-cube5 {
   -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s; }
+  animation-delay: 0.2s;
+}
+
 .sk-cube-grid .sk-cube6 {
   -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s; }
+  animation-delay: 0.3s;
+}
+
 .sk-cube-grid .sk-cube7 {
   -webkit-animation-delay: 0s;
-          animation-delay: 0s; }
+  animation-delay: 0s;
+}
+
 .sk-cube-grid .sk-cube8 {
   -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s; }
+  animation-delay: 0.1s;
+}
+
 .sk-cube-grid .sk-cube9 {
   -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s; }
+  animation-delay: 0.2s;
+}
 
 @-webkit-keyframes sk-cubeGridScaleDelay {
-  0%, 70%, 100% {
+  0%,
+  70%,
+  100% {
     -webkit-transform: scale3D(1, 1, 1);
-            transform: scale3D(1, 1, 1);
-  } 35% {
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
     -webkit-transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1); 
+    transform: scale3D(0, 0, 1);
   }
 }
 
 @keyframes sk-cubeGridScaleDelay {
-  0%, 70%, 100% {
+  0%,
+  70%,
+  100% {
     -webkit-transform: scale3D(1, 1, 1);
-            transform: scale3D(1, 1, 1);
-  } 35% {
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
     -webkit-transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1);
-  } 
+    transform: scale3D(0, 0, 1);
+  }
 }
 
-#login{
+#login {
   margin-top: 10%;
-  
 }
-#login-text{
+
+#login-text {
   padding: 50px;
 }
 
-#login-text h3{
-  color:#00acc1 ;
+#login-text h3 {
+  color: #00acc1;
 }
 
-#register:active{
-  color:black;
+#register:active {
+  color: black;
 }
-
 
 @media only screen and (max-width: 601px) {
   #filter-select {
     right: 5% !important;
     width: 60px !important;
   }
-
   #filter-select input {
     font-size: 0 !important;
   }
-
-  #filter-select ul li img{
+  #filter-select ul li img {
     float: none;
     margin-left: 25px;
   }
-
-  #filter-select .dropdown-content ul{
+  #filter-select .dropdown-content ul {
     height: auto !important;
   }
-
-  #filter-select .dropdown-content li > span{
+  #filter-select .dropdown-content li>span {
     font-size: 0px !important;
     padding: 0 !important;
   }
-
-  #filter-select .dropdown-content li > img{
+  #filter-select .dropdown-content li>img {
     margin-top: 20px;
   }
- 
   #filter-select .select-wrapper .caret {
     height: 50px;
     width: 50px;
     right: -5px;
   }
-
 }
 
 @media only screen and (max-width: 992px) {
@@ -395,15 +423,13 @@ footer .container {
     width: 90px;
     float: right;
   }
-
-  #filter-select ul.dropdown-content.select-dropdown{
+  #filter-select ul.dropdown-content.select-dropdown {
     left: -10px !important;
   }
-
-  #filter-select input, #filter-select .dropdown-content li > span{
+  #filter-select input,
+  #filter-select .dropdown-content li>span {
     font-size: 13px;
   }
-
 }
 
 @media only screen and (min-width: 1700px) {
@@ -411,9 +437,3 @@ footer .container {
     right: 16%;
   }
 }
-
-
-
-
-
-    
