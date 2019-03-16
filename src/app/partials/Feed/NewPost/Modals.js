@@ -54,7 +54,7 @@ export class Modals extends Component {
           errorMessage: "Input invalid, please enter something"
         });
       } else if (
-        !inputImageValue.includes(
+        inputImageValue.includes(
           ".jpg" || ".png" || ".svg" || ".gif" || ".bmp" || ".jpeg"
         )
       ) {
