@@ -7,10 +7,12 @@ export class FilterPost extends Component {
         this.selectFilter = React.createRef();
     }
 
+    
     componentDidMount() {
         M.FormSelect.init(this.selectFilter.current);
     } 
 
+    
     render() {
         return (
             <div className="input-field col s12 m6" id="filter-select">

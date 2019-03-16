@@ -1,12 +1,28 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
 import { PeopleList } from './PeoplePartials/PeopleList';
 import { SearchPeople } from './PeoplePartials/SearchPeople';
 import { getAllUsers } from '../../../services/userService';
-import { getAllUsersAction, changeSearchValueAction } from '../../../state/actions/peopleActions';
 
-class PeoplePage extends Component {
+export class PeoplePage extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            users: [],
+            searchValue: ''
+        }
+    }
+
+    getPeopleData = () => {
+        getAllUsers()
+            .then((users) => {
+                this.setState({ users: users })
+            })
+    }
+
+    changeSearchValue = (event) => {
+        this.setState({ searchValue: event.target.value.toLowerCase() })
+    }
 
     filterUsers = (users, searchValue) => {
         return users.filter((user) => {
@@ -15,33 +31,17 @@ class PeoplePage extends Component {
     }
 
     componentDidMount() {
-        this.props.getPeopleData();
+        this.getPeopleData();
     }
 
     render() {
-        const { users, searchValue } = this.props;
+        const { users, searchValue } = this.state;
         const filteredUsers = this.filterUsers(users, searchValue)
         return (
             <div className='container' id='people'>
-                <SearchPeople onSearchHandler={this.props.changeSearchValue} />
+                <SearchPeople onSearchHandler={this.changeSearchValue} />
                 <PeopleList users={filteredUsers} />
             </div>
         )
     }
 }
-
-const mapStateToProps = state => {
-    return {
-        users: state.people.users,
-        searchValue: state.people.searchValue
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-      getPeopleData: () => { dispatch(getAllUsersAction()) },
-      changeSearchValue: event => { dispatch(changeSearchValueAction(event.target.value)) },
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(PeoplePage);

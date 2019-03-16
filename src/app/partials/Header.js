@@ -5,8 +5,8 @@ import M from 'materialize-css';
 
 
 class Header extends Component {
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.hamburgerBtn = React.createRef()
     }
     
